@@ -1,0 +1,17 @@
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\bin\Debug\net8.0\BLL.deps.json
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\bin\Debug\net8.0\BLL.dll
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\bin\Debug\net8.0\BLL.pdb
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\bin\Debug\net8.0\DAL.dll
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\bin\Debug\net8.0\DTO.dll
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\bin\Debug\net8.0\DAL.pdb
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\bin\Debug\net8.0\DTO.pdb
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\obj\Debug\net8.0\BLL.csproj.AssemblyReference.cache
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\obj\Debug\net8.0\BLL.GeneratedMSBuildEditorConfig.editorconfig
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\obj\Debug\net8.0\BLL.AssemblyInfoInputs.cache
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\obj\Debug\net8.0\BLL.AssemblyInfo.cs
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\obj\Debug\net8.0\BLL.csproj.CoreCompileInputs.cache
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\obj\Debug\net8.0\BLL.csproj.Up2Date
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\obj\Debug\net8.0\BLL.dll
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\obj\Debug\net8.0\refint\BLL.dll
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\obj\Debug\net8.0\BLL.pdb
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\BUL\obj\Debug\net8.0\ref\BLL.dll
