@@ -32,6 +32,19 @@ namespace DAL
 
             return list;
         }
+        public bool CreateCategory(dto_Categories category)
+        {
+            using var conn = new SqlConnection(_conn);
+            conn.Open();
+            var cmd = new SqlCommand(@"
+                INSERT INTO Categories
+                (CategoryName, Description, IsActive)
+                VALUES(@name, @description, @isActive)", conn);
+            cmd.Parameters.AddWithValue("@name", category.CategoryName);
+            cmd.Parameters.AddWithValue("@description", category.Description ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@isActive", category.IsActive ?? true);
+            return cmd.ExecuteNonQuery() > 0;
+        }
 
 
     }

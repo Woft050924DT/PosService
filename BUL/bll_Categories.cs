@@ -13,6 +13,9 @@ namespace BLL
         {
             return dal.GetAll();
         }
-
+        public bool CreateCategory(DTO.dto_Categories category)
+        {
+            return dal.CreateCategory(category);
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace DAL
 {
     public class dal_user
     {
-        private string _conn = "Server=DESKTOP-EU1MAAC\\SQLEXPRESS;Database=HDV;Trusted_Connection=True;TrustServerCertificate=True;";
+        private string _conn = "Server=DESKTOP-TG67AE9;Database=HDV;Trusted_Connection=True;TrustServerCertificate=True;";
 
         public dto_user GetUser(string username)
         {
