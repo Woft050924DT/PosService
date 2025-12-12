@@ -17,5 +17,9 @@ namespace BLL
         {
             return dal.CreateCategory(category);
         }
+        public bool DeleteCategory(int CategoryID)
+        {
+            return dal.DeleteCaregori(CategoryID);
+        }
     }
 }

@@ -43,8 +43,25 @@ namespace DAL
             cmd.Parameters.AddWithValue("@name", category.CategoryName);
             cmd.Parameters.AddWithValue("@description", category.Description ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@isActive", category.IsActive ?? true);
-            return cmd.ExecuteNonQuery() > 0;
+            int row = cmd.ExecuteNonQuery();
+            return row > 0;
         }
+        public bool DeleteCaregori(int CategoryID)
+        {
+            using var conn = new SqlConnection(_conn);
+            conn.Open();
+
+            var cmd = new SqlCommand(
+                "DELETE FROM Categories WHERE CategoryID = @CategoryID",
+                conn
+            );
+
+            cmd.Parameters.AddWithValue("@CategoryID", CategoryID);
+
+            int row = cmd.ExecuteNonQuery();
+            return row > 0;
+        }
+
 
 
     }
