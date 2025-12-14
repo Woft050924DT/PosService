@@ -68,5 +68,24 @@ namespace apiIventory.Controllers
                 return StatusCode(500, new { error = ex.Message });
             }
         }
+        [Route("update")]
+        [HttpPut]
+        public IActionResult UpdateCategory([FromBody] dto_Categories model)
+        {
+            try
+            {
+                bool result = _bll.UpdateCategory(model);
+
+                if (result)
+                    return Ok(new { message = "Cập nhật Category thành công", data = model });
+
+                return NotFound(new { message = "Không tìm thấy CategoryId = " + model.CategoryId });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
     }
 }

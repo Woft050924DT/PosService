@@ -61,8 +61,23 @@ namespace DAL
             int row = cmd.ExecuteNonQuery();
             return row > 0;
         }
+        public bool UpdateCategori(dto_Categories category)
+        {
+            using var conn = new SqlConnection(_conn);
+            conn.Open();
+            var cmd = new SqlCommand(@"
+                UPDATE Categories
+                SET CategoryName = @name,
+                    Description = @description,
+                    IsActive = @isActive
+                WHERE CategoryID = @category", conn);
+            cmd.Parameters.AddWithValue("@name", category.CategoryName);
+            cmd.Parameters.AddWithValue("@description", category.Description ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@isActive", category.IsActive ?? true);
+            cmd.Parameters.AddWithValue("@category", category.CategoryId);  
+            int row = cmd.ExecuteNonQuery();
+            return row > 0;
 
-
-
+        } 
     }
 }

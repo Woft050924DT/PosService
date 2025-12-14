@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BLL
 {
@@ -20,6 +22,15 @@ namespace BLL
         public bool DeleteCategory(int CategoryID)
         {
             return dal.DeleteCaregori(CategoryID);
+        }
+        public bool UpdateCategory(DTO.dto_Categories category)
+        {
+            if (category.CategoryId <= 0)
+                throw new Exception("CategoryId không hợp lệ");
+
+            if (string.IsNullOrEmpty(category.CategoryName))
+                throw new Exception("CategoryName không được để trống");
+            return dal.UpdateCategori(category);
         }
     }
 }
