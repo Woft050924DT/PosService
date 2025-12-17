@@ -20,21 +20,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "BTL_API_USER",
-              "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\BTL_API_USER.csproj",
-              "RelativeDocumentMoniker": "..\\BTL_API_USER\\BTL_API_USER.csproj",
-              "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\BTL_API_USER.csproj",
-              "RelativeToolTip": "..\\BTL_API_USER\\BTL_API_USER.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-12-17T09:50:09.644Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
@@ -45,16 +32,28 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BTL_API_USER.csproj",
+              "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\BTL_API_USER.csproj",
+              "RelativeDocumentMoniker": "..\\BTL_API_USER\\BTL_API_USER.csproj",
+              "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\BTL_API_USER.csproj",
+              "RelativeToolTip": "..\\BTL_API_USER\\BTL_API_USER.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-17T09:50:09.644Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "BTL_API_ADMIN",
+              "Title": "BTL_API_ADMIN.csproj",
               "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\apiIventory\\BTL_API_ADMIN.csproj",
               "RelativeDocumentMoniker": "BTL_API_ADMIN.csproj",
               "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\apiIventory\\BTL_API_ADMIN.csproj",
               "RelativeToolTip": "BTL_API_ADMIN.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-12-17T09:50:13.096Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-17T09:50:13.096Z"
             },
             {
               "$type": "Document",
@@ -66,8 +65,7 @@
               "RelativeToolTip": "..\\DAL\\dal_category.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-17T09:50:01.452Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-17T09:50:01.452Z"
             }
           ]
         }
