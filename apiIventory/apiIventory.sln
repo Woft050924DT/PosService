@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "apiIventory", "apiIventory.csproj", "{5B20C70C-AE1C-4178-9EE4-C29B9361B3E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTL_API_ADMIN", "BTL_API_ADMIN.csproj", "{5B20C70C-AE1C-4178-9EE4-C29B9361B3E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "..\BUL\BLL.csproj", "{F30AA0BA-C34B-4E47-9ECC-E89E27C9C3D0}"
 EndProject

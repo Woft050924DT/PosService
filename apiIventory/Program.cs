@@ -1,11 +1,15 @@
 using apiIventory;
 using BLL;
+using DAL;
 using DTO;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //Inject dependency into the project
 builder.Services.AddTransient<dto_helloWorld, helloWorld>();
+builder.Services.AddScoped<dal_Products>();
+builder.Services.AddScoped<bll_Products>();
+
 
 // Add services to the container.
 builder.Services.AddScoped<bll_Categories>();
