@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using DTO;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,15 @@ namespace BLL
         {
             return dal.GetAllProducts();
         }
-    }
+        public bool UpdateProduct(dto_Products p)
+        {
+            if (p.ProductID <= 0)
+                throw new Exception("ProductID không hợp lệ");
+
+            if (string.IsNullOrEmpty(p.ProductName))
+                throw new Exception("ProductName không được để trống");
+
+            return dal.UpdateProduct(p);
+        }
+    }  
 }

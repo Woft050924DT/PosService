@@ -2674,28 +2674,28 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "DTO >= 1.0.0",
-      "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\BLL\\BLL.csproj"
+      "D:\\Bài tập lớn\\BaiTapLon_PTPMHuongDV\\BaiTapLon_API_ADMIN\\BLL\\BLL.csproj",
+      "DTO >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HoangDEV\\.nuget\\packages\\": {},
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\GUI\\GUI.csproj",
+      "projectUniqueName": "D:\\Bài tập lớn\\BaiTapLon_PTPMHuongDV\\BaiTapLon_API_ADMIN\\GUI\\GUI.csproj",
       "projectName": "GUI",
-      "projectPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\GUI\\GUI.csproj",
-      "packagesPath": "C:\\Users\\HoangDEV\\.nuget\\packages\\",
-      "outputPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\GUI\\obj\\",
+      "projectPath": "D:\\Bài tập lớn\\BaiTapLon_PTPMHuongDV\\BaiTapLon_API_ADMIN\\GUI\\GUI.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "D:\\Bài tập lớn\\BaiTapLon_PTPMHuongDV\\BaiTapLon_API_ADMIN\\GUI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\HoangDEV\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2710,11 +2710,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\BLL\\BLL.csproj": {
-              "projectPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\BLL\\BLL.csproj"
+            "D:\\Bài tập lớn\\BaiTapLon_PTPMHuongDV\\BaiTapLon_API_ADMIN\\BLL\\BLL.csproj": {
+              "projectPath": "D:\\Bài tập lớn\\BaiTapLon_PTPMHuongDV\\BaiTapLon_API_ADMIN\\BLL\\BLL.csproj"
             },
-            "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\DTO\\DTO.csproj": {
-              "projectPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\DTO\\DTO.csproj"
+            "D:\\Bài tập lớn\\BaiTapLon_PTPMHuongDV\\BaiTapLon_API_ADMIN\\DTO\\DTO.csproj": {
+              "projectPath": "D:\\Bài tập lớn\\BaiTapLon_PTPMHuongDV\\BaiTapLon_API_ADMIN\\DTO\\DTO.csproj"
             }
           }
         }
@@ -2729,7 +2729,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -2750,7 +2750,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -2758,8 +2758,8 @@
     {
       "code": "NU1104",
       "level": "Error",
-      "message": "Unable to find project 'G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\BLL\\BLL.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\BLL\\BLL.csproj",
+      "message": "Unable to find project 'D:\\Bài tập lớn\\BaiTapLon_PTPMHuongDV\\BaiTapLon_API_ADMIN\\BLL\\BLL.csproj'. Check that the project reference is valid and that the project file exists.",
+      "libraryId": "D:\\Bài tập lớn\\BaiTapLon_PTPMHuongDV\\BaiTapLon_API_ADMIN\\BLL\\BLL.csproj",
       "targetGraphs": [
         "net8.0"
       ]
