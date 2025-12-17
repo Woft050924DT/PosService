@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LWt8WDcvG3Y=",
+  "dgSpecHash": "KXNagrTf/Rk=",
   "success": false,
-  "projectFilePath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\GUI\\GUI.csproj",
+  "projectFilePath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\GUI\\GUI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HoangDEV\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\HoangDEV\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
@@ -63,8 +63,8 @@
     {
       "code": "NU1104",
       "level": "Error",
-      "message": "Unable to find project 'G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\BLL\\BLL.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\BLL\\BLL.csproj",
+      "message": "Unable to find project 'G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\BLL\\BLL.csproj'. Check that the project reference is valid and that the project file exists.",
+      "libraryId": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\BLL\\BLL.csproj",
       "targetGraphs": [
         "net8.0"
       ]

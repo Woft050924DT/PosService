@@ -1,0 +1,57 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\apiIventory\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5B20C70C-AE1C-4178-9EE4-C29B9361B3E0}|BTL_API_ADMIN.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend 2\\backend_iventory\\apiiventory\\btl_api_admin.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5B20C70C-AE1C-4178-9EE4-C29B9361B3E0}|BTL_API_ADMIN.csproj|solutionrelative:btl_api_admin.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F30AA0BA-C34B-4E47-9ECC-E89E27C9C3D0}|..\\BUL\\BLL.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend 2\\backend_iventory\\bul\\bll.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BTL_API_ADMIN",
+              "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\apiIventory\\BTL_API_ADMIN.csproj",
+              "RelativeDocumentMoniker": "BTL_API_ADMIN.csproj",
+              "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\apiIventory\\BTL_API_ADMIN.csproj",
+              "RelativeToolTip": "BTL_API_ADMIN.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-17T08:21:11.174Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BLL",
+              "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\BUL\\BLL.csproj",
+              "RelativeDocumentMoniker": "..\\BUL\\BLL.csproj",
+              "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\BUL\\BLL.csproj",
+              "RelativeToolTip": "..\\BUL\\BLL.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-17T08:21:09.566Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

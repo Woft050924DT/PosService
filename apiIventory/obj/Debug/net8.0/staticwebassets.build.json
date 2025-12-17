@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "L81mEP++iplpD0UvPrNwrFCXDoZSJdKs9aL3VL6pSXQ=",
+  "Source": "BTL_API_ADMIN",
+  "BasePath": "_content/BTL_API_ADMIN",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

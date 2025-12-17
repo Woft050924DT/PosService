@@ -11,12 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "..\DTO\DTO.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "..\DAL\DAL.csproj", "{F4FFD398-5EBB-4D96-A7B2-A95343FB6928}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "..\GUI\GUI.csproj", "{A5B4D86A-40C7-48A2-93AF-0D61B69D5892}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTL_API_USER", "BTL_API_USER\BTL_API_USER.csproj", "{F1846283-7237-4CF1-8011-5B8D567980B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +40,10 @@ Global
 		{F4FFD398-5EBB-4D96-A7B2-A95343FB6928}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4FFD398-5EBB-4D96-A7B2-A95343FB6928}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4FFD398-5EBB-4D96-A7B2-A95343FB6928}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A5B4D86A-40C7-48A2-93AF-0D61B69D5892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5B4D86A-40C7-48A2-93AF-0D61B69D5892}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5B4D86A-40C7-48A2-93AF-0D61B69D5892}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5B4D86A-40C7-48A2-93AF-0D61B69D5892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1846283-7237-4CF1-8011-5B8D567980B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1846283-7237-4CF1-8011-5B8D567980B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1846283-7237-4CF1-8011-5B8D567980B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1846283-7237-4CF1-8011-5B8D567980B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
