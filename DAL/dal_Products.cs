@@ -1,5 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
-using DTO;
+﻿using DTO;
+using Microsoft.Data.SqlClient;
+using System.Data;
 namespace DAL
 {
     public class dal_Products
@@ -62,6 +63,31 @@ namespace DAL
 
             return list;
         }
+        public bool UpdateProduct(dto_Products p)
+        {
+            using var conn = new SqlConnection(_conn);
+            conn.Open();
+
+            using var cmd = new SqlCommand("sp_UpdateProduct", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ProductID", p.ProductID);
+            cmd.Parameters.AddWithValue("@ProductCode", p.ProductCode);
+            cmd.Parameters.AddWithValue("@Barcode", p.Barcode);
+            cmd.Parameters.AddWithValue("@ProductName", p.ProductName);
+            cmd.Parameters.AddWithValue("@CategoryID", p.CategoryID);
+            cmd.Parameters.AddWithValue("@SupplierID", p.SupplierID);
+            cmd.Parameters.AddWithValue("@Unit", p.Unit);
+            cmd.Parameters.AddWithValue("@CostPrice", p.CostPrice);
+            cmd.Parameters.AddWithValue("@SellingPrice", p.SellingPrice);
+            cmd.Parameters.AddWithValue("@StockQuantity", p.StockQuantity);
+            cmd.Parameters.AddWithValue("@MinStock", p.MinStock);
+            cmd.Parameters.AddWithValue("@ImageURL", p.ImageURL);
+            cmd.Parameters.AddWithValue("@IsActive", p.IsActive);
+            int row = cmd.ExecuteNonQuery();
+            return row > 0;
+        }
+
 
     }
 }
