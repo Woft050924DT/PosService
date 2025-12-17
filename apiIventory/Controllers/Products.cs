@@ -28,6 +28,12 @@ namespace apiIventory.Controllers
                 return StatusCode(500,new { error = ex.Message });
             }
         }
+        [HttpPut]
+        [Route("update")]
+        public IActionResult UpdateProduct(dto_Products p)
+        {
+            return Ok(_bll.UpdateProduct(p));
+        }
 
     } 
 }
