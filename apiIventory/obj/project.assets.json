@@ -4516,11 +4516,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\apiIventory\\BTL_API_ADMIN.csproj",
+      "projectUniqueName": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\apiIventory\\BTL_API_ADMIN.csproj",
       "projectName": "BTL_API_ADMIN",
-      "projectPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\apiIventory\\BTL_API_ADMIN.csproj",
+      "projectPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\apiIventory\\BTL_API_ADMIN.csproj",
       "packagesPath": "C:\\Users\\HoangDEV\\.nuget\\packages\\",
-      "outputPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\apiIventory\\obj\\",
+      "outputPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\apiIventory\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4541,11 +4541,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\BUL\\BLL.csproj": {
-              "projectPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\BUL\\BLL.csproj"
+            "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BUL\\BLL.csproj": {
+              "projectPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BUL\\BLL.csproj"
             },
-            "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\DTO\\DTO.csproj": {
-              "projectPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend 2\\backend_iventory\\DTO\\DTO.csproj"
+            "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\DTO\\DTO.csproj": {
+              "projectPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\DTO\\DTO.csproj"
             }
           }
         }

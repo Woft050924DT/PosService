@@ -1,0 +1,6 @@
+@BTL_API_USER_HostAddress = http://localhost:5266
+
+GET {{BTL_API_USER_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
