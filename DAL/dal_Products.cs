@@ -87,6 +87,18 @@ namespace DAL
             int row = cmd.ExecuteNonQuery();
             return row > 0;
         }
+        public bool DeleteProduct(int productId)
+        {
+            using var conn = new SqlConnection(_conn);
+            conn.Open();
+
+            using var cmd = new SqlCommand("sp_DeleteProduct", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ProductID", productId);
+
+            return cmd.ExecuteNonQuery() > 0;
+        }
+
 
 
     }

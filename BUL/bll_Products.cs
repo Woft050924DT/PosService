@@ -27,5 +27,16 @@ namespace BLL
 
             return dal.UpdateProduct(p);
         }
-    }  
+
+        public bool DeleteProduct(int productId)
+        {
+            if (productId <= 0)
+                throw new Exception("ProductID không hợp lệ");
+
+            return dal.DeleteProduct(productId);
+        }
+
+        
+
+    }
 }
