@@ -96,7 +96,8 @@ namespace DAL
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ProductID", productId);
 
-            return cmd.ExecuteNonQuery() > 0;
+            int row = cmd.ExecuteNonQuery();
+            return row > 0;
         }
 
 

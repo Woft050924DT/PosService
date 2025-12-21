@@ -31,12 +31,13 @@ namespace BLL
         public bool DeleteProduct(int productId)
         {
             if (productId <= 0)
-                throw new Exception("ProductID không hợp lệ");
+                return false;
 
             return dal.DeleteProduct(productId);
         }
 
-        
+
+
 
     }
 }

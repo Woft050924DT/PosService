@@ -35,19 +35,25 @@ namespace apiIventory.Controllers
             return Ok(_bll.UpdateProduct(p));
         }
         [HttpDelete]
-        [Route("delete")]
+        [Route("delete/{productId}")]
         public IActionResult DeleteProduct(int productId)
         {
             try
             {
-                var Product = _bll.DeleteProduct(productId);
-                return Ok(Product);
+                bool isDeleted = _bll.DeleteProduct(productId);
+
+                if (!isDeleted)
+                {
+                    return NotFound(new { message = "Product not found" });
+                }
+
+                return Ok(new { message = "Xoas sản phẩm thành công" }); // 204
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, new { error = ex.Message });
             }
         }
 
-    } 
+    }
 }
