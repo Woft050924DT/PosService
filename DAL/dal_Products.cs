@@ -99,6 +99,30 @@ namespace DAL
             int row = cmd.ExecuteNonQuery();
             return row > 0;
         }
+        public bool AddProduct(dto_Products p)
+        {
+            using var conn = new SqlConnection(_conn);
+            using var cmd = new SqlCommand("sp_AddProduct", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ProductCode", p.ProductCode);
+            cmd.Parameters.AddWithValue("@Barcode", p.Barcode);
+            cmd.Parameters.AddWithValue("@ProductName", p.ProductName);
+            cmd.Parameters.AddWithValue("@CategoryID", p.CategoryID);
+            cmd.Parameters.AddWithValue("@SupplierID", p.SupplierID);
+            cmd.Parameters.AddWithValue("@Unit", p.Unit);
+            cmd.Parameters.AddWithValue("@CostPrice", p.CostPrice);
+            cmd.Parameters.AddWithValue("@SellingPrice", p.SellingPrice);
+            cmd.Parameters.AddWithValue("@StockQuantity", p.StockQuantity);
+            cmd.Parameters.AddWithValue("@MinStock", p.MinStock);
+            cmd.Parameters.AddWithValue("@ImageURL", p.ImageURL ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@IsActive", p.IsActive);
+
+            conn.Open();
+            return (int)cmd.ExecuteScalar() == 1;
+        }
+
 
 
 

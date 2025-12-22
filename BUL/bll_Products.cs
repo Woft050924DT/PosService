@@ -35,6 +35,13 @@ namespace BLL
 
             return dal.DeleteProduct(productId);
         }
+        public bool AddProduct(dto_Products product)
+        {
+            if (string.IsNullOrEmpty(product.ProductName))
+                return false;
+
+            return dal.AddProduct(product);
+        }
 
 
 

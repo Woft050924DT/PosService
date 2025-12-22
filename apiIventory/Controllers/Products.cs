@@ -54,6 +54,17 @@ namespace apiIventory.Controllers
                 return StatusCode(500, new { error = ex.Message });
             }
         }
+        [HttpPost("add")]
+        public IActionResult Add([FromBody] dto_Products product)
+        {
+            if (product == null)
+                return BadRequest("Dữ liệu không hợp lệ");
 
+            bool result = _bll.AddProduct(product);
+
+            return result
+                ? Ok("Thêm sản phẩm thành công")
+                : BadRequest("Thêm sản phẩm thất bại");
+        }
     }
 }
