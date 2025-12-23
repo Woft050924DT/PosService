@@ -3,12 +3,21 @@ using BLL;
 using DAL;
 using DTO;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 //Inject dependency into the project
 builder.Services.AddTransient<dto_helloWorld, helloWorld>();
 builder.Services.AddScoped<dal_Products>();
 builder.Services.AddScoped<bll_Products>();
+builder.Services.AddScoped<dal_InventoryTransaction>();
+builder.Services.AddScoped<bll_InventoryTransaction>();
+// Strongly typed config
+builder.Services.Configure<appSetting>(
+    builder.Configuration.GetSection("AppSettings"));
+
+builder.Services.Configure<ConnectionStrings>(
+    builder.Configuration.GetSection("ConnectionStrings"));
 
 
 // Add services to the container.
