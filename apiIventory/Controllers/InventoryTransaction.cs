@@ -26,5 +26,26 @@ namespace BTL_API_ADMIN.Controllers
                 return StatusCode(500, new { error = ex.Message });
             }
         }
+        [HttpPost]
+        [Route("add")]
+        public IActionResult AddTransaction([FromBody] dto_InventoryTransaction transaction)
+        {
+            try
+            {
+                bool isAdded = _bll.AddTransaction(transaction);
+                if (isAdded)
+                {
+                    return Ok(new { message = "Transaction added successfully" });
+                }
+                else
+                {
+                    return StatusCode(500, new { error = "Failed to add transaction" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
     }
 }
