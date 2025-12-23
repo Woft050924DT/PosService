@@ -1,11 +1,18 @@
 ﻿using DTO;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using Microsoft.Extensions.Options;
 namespace DAL
 {
     public class dal_Products
     {
-        private string _conn = "Server=DESKTOP-TG67AE9;Database=HDV;Trusted_Connection=True;TrustServerCertificate=True;";
+        private readonly appSetting _appSettings;
+        private string _conn;
+
+        public dal_Products(IOptions<ConnectionStrings> options)
+        {
+            _conn = options.Value.DefaultConnection;
+        }
         public List<dto_Products> GetAllProducts()
         {
             var list = new List<dto_Products>();
@@ -105,7 +112,7 @@ namespace DAL
             using var cmd = new SqlCommand("sp_AddProduct", conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
-
+            
             cmd.Parameters.AddWithValue("@ProductCode", p.ProductCode);
             cmd.Parameters.AddWithValue("@Barcode", p.Barcode);
             cmd.Parameters.AddWithValue("@ProductName", p.ProductName);
@@ -116,11 +123,14 @@ namespace DAL
             cmd.Parameters.AddWithValue("@SellingPrice", p.SellingPrice);
             cmd.Parameters.AddWithValue("@StockQuantity", p.StockQuantity);
             cmd.Parameters.AddWithValue("@MinStock", p.MinStock);
-            cmd.Parameters.AddWithValue("@ImageURL", p.ImageURL ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@ImageURL", p.ImageURL);
             cmd.Parameters.AddWithValue("@IsActive", p.IsActive);
 
             conn.Open();
-            return (int)cmd.ExecuteScalar() == 1;
+            int rows = cmd.ExecuteNonQuery();
+
+            return rows > 0;
+
         }
 
 

@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using DAL;
+using DTO;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,13 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 namespace BLL
 {
     public class bll_Products
+
     {
-        private DAL.dal_Products dal = new DAL.dal_Products();
+        private readonly dal_Products dal;
+        public bll_Products(dal_Products _dal)
+        {
+            dal = _dal;
+        }
         public List<DTO.dto_Products> GetAllProducts()
         {
             return dal.GetAllProducts();
@@ -42,9 +48,5 @@ namespace BLL
 
             return dal.AddProduct(product);
         }
-
-
-
-
     }
 }
