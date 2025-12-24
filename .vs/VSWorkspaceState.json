@@ -1,11 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\apiIventory",
     "\\BTL_API_USER",
     "\\BUL",
     "\\DAL",
-    "\\DTO"
+    "\\DTO",
+    "\\DTO\\Models"
   ],
-  "SelectedNode": "\\BTL_API_USER\\appsettings.json",
+  "SelectedNode": "\\BTL_API_USER\\Program.cs",
   "PreviewInSolutionExplorer": false
 }
