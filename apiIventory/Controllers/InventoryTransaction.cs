@@ -35,11 +35,11 @@ namespace BTL_API_ADMIN.Controllers
                 bool isAdded = _bll.AddTransaction(transaction);
                 if (isAdded)
                 {
-                    return Ok(new { message = "Transaction added successfully" });
+                    return Ok(new { message = "Thêm thành công" });
                 }
                 else
                 {
-                    return StatusCode(500, new { error = "Failed to add transaction" });
+                    return StatusCode(500, new { error = "Thêm thất bại" });
                 }
             }
             catch (Exception ex)
@@ -47,5 +47,51 @@ namespace BTL_API_ADMIN.Controllers
                 return StatusCode(500, new { error = ex.Message });
             }
         }
+        [HttpPut]
+        [Route("update")]
+        public IActionResult UpdateTransaction([FromBody] dto_InventoryTransaction transaction)
+        {
+            try
+            {
+                bool isUpdated = _bll.UpdateTransaction(transaction);
+                if (isUpdated)
+                {
+                    return Ok(new { message = "Cập nhật thành công" });
+                }
+                else
+                {
+                    return StatusCode(500, new { error = "Cập nhật thất bại" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+        [HttpDelete]
+        [Route("delete/{TransactionId}")]
+        public IActionResult DeleteTransaction(int TransactionId) 
+        {
+            if (TransactionId <= 0)
+                return BadRequest(new { error = "Id không hợp lệ" });
+
+            try
+            {
+                bool isDeleted = _bll.DeleteTransaction(TransactionId);
+                if (isDeleted)
+                {
+                    return Ok(new { message = "Xoá thành công" });
+                }
+                else
+                {
+                    return StatusCode(500, new { error = "Xoá thất bại" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { error = "Không tìm thấy giao dịch để xóa" });
+            }
+        }
+
     }
 }

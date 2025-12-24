@@ -66,5 +66,6 @@ namespace apiIventory.Controllers
                 ? Ok("Thêm sản phẩm thành công")
                 : BadRequest("Thêm sản phẩm thất bại");
         }
+        
     }
 }
