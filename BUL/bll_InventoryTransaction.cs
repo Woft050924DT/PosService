@@ -33,5 +33,18 @@ namespace BLL
 
             return _dal.Add(transaction);
         }
+        public bool UpdateTransaction(dto_InventoryTransaction transaction)
+        {
+            if (transaction.TransactionId <= 0)
+                throw new Exception("TransactionId không hợp lệ");
+            return _dal.Update(transaction);
+        }
+        public bool DeleteTransaction(int TransactionId) { 
+            if(TransactionId  <= 0)
+            {
+                return false;
+            }
+            return _dal.Delete(TransactionId);
+        }
     }
 }

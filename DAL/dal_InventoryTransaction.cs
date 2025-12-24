@@ -63,5 +63,33 @@ namespace DAL
             int row = cmd.ExecuteNonQuery();
             return row > 0;
         }
+        public bool Update(dto_InventoryTransaction t)
+        {
+            using var conn = new SqlConnection(_conn);
+            using var cmd = new SqlCommand("sp_UpdateInventoryTransaction", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@TransactionId", t.TransactionId);
+            cmd.Parameters.AddWithValue("@Quantity", t.Quantity);
+            cmd.Parameters.AddWithValue("@QuantityAfter", t.QuantityAfter);
+            cmd.Parameters.AddWithValue("@Notes", t.Notes);
+
+            conn.Open();
+            int row = cmd.ExecuteNonQuery();
+            return row > 0;
+        }
+        public bool Delete(int id)
+        {
+            using var conn = new SqlConnection(_conn);
+            using var cmd = new SqlCommand("sp_DeleteInventoryTransaction", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@TransactionId", id);
+
+            conn.Open();
+            int row = cmd.ExecuteNonQuery();
+            return (row > 0);
+
+        }
     }
 }
