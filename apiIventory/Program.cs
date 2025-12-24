@@ -12,6 +12,8 @@ builder.Services.AddScoped<dal_Products>();
 builder.Services.AddScoped<bll_Products>();
 builder.Services.AddScoped<dal_InventoryTransaction>();
 builder.Services.AddScoped<bll_InventoryTransaction>();
+builder.Services.AddScoped<dal_Suppliers>();
+builder.Services.AddScoped<bll_Suppliers>();
 // Strongly typed config
 builder.Services.Configure<appSetting>(
     builder.Configuration.GetSection("AppSettings"));
