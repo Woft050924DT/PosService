@@ -1,5 +1,7 @@
 namespace DTO
-public class defaulseConnect
 {
-	public string ConnectionString { get; set; }
+public class DefaultConnect
+    {
+	public string connectionString { get; set; }
+}
 }

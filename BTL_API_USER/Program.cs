@@ -1,10 +1,13 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using DTO;
+var builder = WebApplication.CreateBuilder(args);
 
 //dependency inject
+builder.Services.AddTransient<DTO_I_DBHelper, DAL_DBHelper>();
+builder.Services.AddTransient<DAL_HoaDon, DAL_HoaDon>();
 
 // Đăng ký cấu hình kiểu mạnh
-builder.Services.Configure<defaulseConnect>(
-    builder.Configuration.GetSection("defaulseConnect"));
+builder.Services.Configure<DefaultConnect>(
+    builder.Configuration.GetSection("DefaultConnect"));
 
 // Add services to the container.
 builder.Services.AddControllers();

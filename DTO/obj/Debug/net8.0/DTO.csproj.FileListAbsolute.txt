@@ -13,3 +13,12 @@ G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\b
 G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\backend_iventory\DTO\obj\Debug\net8.0\DTO.pdb
 G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\backend_iventory\DTO\obj\Debug\net8.0\DTO.genruntimeconfig.cache
 G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend 2\backend_iventory\DTO\obj\Debug\net8.0\ref\DTO.dll
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\obj\Debug\net8.0\DTO.csproj.AssemblyReference.cache
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\obj\Debug\net8.0\DTO.GeneratedMSBuildEditorConfig.editorconfig
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\obj\Debug\net8.0\DTO.AssemblyInfoInputs.cache
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\obj\Debug\net8.0\DTO.AssemblyInfo.cs
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\obj\Debug\net8.0\DTO.csproj.CoreCompileInputs.cache
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\obj\Debug\net8.0\DTO.sourcelink.json
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\obj\Debug\net8.0\DTO.dll
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\obj\Debug\net8.0\refint\DTO.dll
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\obj\Debug\net8.0\DTO.pdb

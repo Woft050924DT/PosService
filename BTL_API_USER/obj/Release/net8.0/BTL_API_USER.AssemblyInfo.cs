@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BTL_API_USER")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+011d917f8042ff79b09f611f90b67e38c7cb5b50")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6bc43b97b7263a74f34912965e7c4d2128ecde87")]
 [assembly: System.Reflection.AssemblyProductAttribute("BTL_API_USER")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BTL_API_USER")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
