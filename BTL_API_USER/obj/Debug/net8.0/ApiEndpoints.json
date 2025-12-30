@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "BTL_API_USER.Controllers.KhachHangsController",
+    "Method": "CreateKhachHang",
+    "RelativePath": "api/KhachHangs",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DAL.Models.Customer",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

@@ -22,3 +22,9 @@ G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_ive
 G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\obj\Debug\net8.0\DTO.dll
 G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\obj\Debug\net8.0\refint\DTO.dll
 G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\obj\Debug\net8.0\DTO.pdb
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\bin\Debug\net8.0\DTO.deps.json
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\bin\Debug\net8.0\DTO.runtimeconfig.json
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\bin\Debug\net8.0\DTO.dll
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\bin\Debug\net8.0\DTO.pdb
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\obj\Debug\net8.0\DTO.genruntimeconfig.cache
+G:\hocTap\linh tinh\môn ở trường\webapiASP.net\btl_huongDichVu\backend_iventory\DTO\obj\Debug\net8.0\ref\DTO.dll

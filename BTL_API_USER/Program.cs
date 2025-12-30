@@ -1,9 +1,13 @@
-﻿using DTO;
+﻿using BLL;
+using DAL;
+using DTO;
 var builder = WebApplication.CreateBuilder(args);
 
 //dependency inject
 builder.Services.AddTransient<DTO_I_DBHelper, DAL_DBHelper>();
-builder.Services.AddTransient<DAL_HoaDon, DAL_HoaDon>();
+builder.Services.AddTransient<DAL_KhachHang, DAL_KhachHang>();
+builder.Services.AddTransient<BLL_KhachHang, BLL_KhachHang>();
+
 
 // Đăng ký cấu hình kiểu mạnh
 builder.Services.Configure<DefaultConnect>(

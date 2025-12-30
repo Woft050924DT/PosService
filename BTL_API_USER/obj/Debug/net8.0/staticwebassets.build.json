@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "9mKxNQPA23cl2Hjnjg7K6m9th+7CLW+C+bAFwF+pm8U=",
+  "Source": "BTL_API_USER",
+  "BasePath": "_content/BTL_API_USER",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
