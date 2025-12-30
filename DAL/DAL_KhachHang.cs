@@ -45,5 +45,72 @@ namespace DAL
                 throw new Exception("Error in DAL: " + ex.Message, ex);
             }
         }
+        public DataTable selectKhachHangWithID(Customer model) {
+           string msgError = string.Empty;
+            try
+            {
+                DataTable result = dbHelper.ExecuteSProcedureReturnDataTable(
+                    out msgError, "selectKhachHangWithID", "@CustomerId", model.CustomerId);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in DAL: " + ex.Message, ex);
+            }
+        }
+        //chọn sửa thì sẽ dùng api lấy dữ liệu và thêm vào các trường( có api get-by-id gưi json lên client), sau đó dùng api sửa để lưu lại
+        public DataTable updateKhachHang(Customer model)
+        {
+            string msgError = string.Empty;
+            try
+            {
+                DataTable result = dbHelper.ExecuteSProcedureReturnDataTable(
+                    out msgError,
+                    "updateKhachHang",
+                    "@CustomerId", model.CustomerId,
+                    "@CustomerCode", model.CustomerCode,
+                    "@FullName", model.FullName,
+                    "@Phone", model.Phone,
+                    "@Email", model.Email,
+                    "@Address", model.Address,
+                    "@Points", model.Points
+                );
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in DAL: " + ex.Message, ex);
+            }
+        }
+
+        public bool deleteKhachHang(Customer model)
+        {
+            string msgError = string.Empty;
+            try
+            {
+                DataTable result = dbHelper.ExecuteSProcedureReturnDataTable(
+                    out msgError,
+                    "deleteKhachHang",
+                    "@CustomerId", model.CustomerId
+                );
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in DAL: " + ex.Message, ex);
+            }
+        }
     }
 }

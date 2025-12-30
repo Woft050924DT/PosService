@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BLL.Helpers;
 using DAL;
 using DAL.Models;
 using DTO;
@@ -20,6 +22,44 @@ namespace BLL
             try
             {
                 return DAL_KhachHang.createKhachHang(model);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in BLL: " + ex.Message, ex);
+            }
+        }
+        public Customer selectKhachHangWithID(Customer model)
+        {
+            try
+            {
+                DataTable table = DAL_KhachHang.selectKhachHangWithID(model);
+
+                return ConvertDataTableToDto.ToList<Customer>(table).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in BLL: " + ex.Message, ex);
+            }
+        }
+        public Customer updateKhachHangWithID(Customer model)
+        {
+            try
+            {
+                DAL_KhachHang.updateKhachHang(model);
+                //hien thi ban ghi sau update
+                DataTable table = DAL_KhachHang.selectKhachHangWithID(model);
+                return ConvertDataTableToDto.ToList<Customer>(table).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in BLL: " + ex.Message, ex);
+            }
+        }
+        public bool deleteKhachHangWithID(Customer model)
+        {
+            try
+            {
+                return DAL_KhachHang.deleteKhachHang(model);
             }
             catch (Exception ex)
             {

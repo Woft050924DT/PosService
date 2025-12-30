@@ -1,8 +1,56 @@
 [
   {
-    "ContainingType": "BTL_API_USER.Controllers.KhachHangsController",
-    "Method": "CreateKhachHang",
-    "RelativePath": "api/KhachHangs",
+    "ContainingType": "BTL_API_USER.Controllers.KhachHangController",
+    "Method": "createKhachHang",
+    "RelativePath": "api/KhachHang",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DAL.Models.Customer",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BTL_API_USER.Controllers.KhachHangController",
+    "Method": "updateKhachHangWithID",
+    "RelativePath": "api/KhachHang",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DAL.Models.Customer",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BTL_API_USER.Controllers.KhachHangController",
+    "Method": "deleteKhachHangWithID",
+    "RelativePath": "api/KhachHang",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DAL.Models.Customer",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BTL_API_USER.Controllers.KhachHangController",
+    "Method": "selectKhachHangWithID",
+    "RelativePath": "api/KhachHang/get-by-id",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

@@ -3,22 +3,28 @@
   "WorkspaceRootPath": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\apiIventory\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{876347CF-1541-4BF4-A82C-D11413BD2FF6}|..\\BTL_API_USER\\BTL_API_USER.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\btl_api_user\\controllers\\ctrl_khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F30AA0BA-C34B-4E47-9ECC-E89E27C9C3D0}|..\\BUL\\BLL.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\bul\\bll_khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4FFD398-5EBB-4D96-A7B2-A95343FB6928}|..\\DAL\\DAL.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\dal\\dal_khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{840FAABB-A9CE-46BD-BAB5-B6C6E1BC51B9}|..\\DTO\\DTO.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\dto\\models\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{876347CF-1541-4BF4-A82C-D11413BD2FF6}|..\\BTL_API_USER\\BTL_API_USER.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\btl_api_user\\controllers\\ctrl_khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F30AA0BA-C34B-4E47-9ECC-E89E27C9C3D0}|..\\BUL\\BLL.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\bul\\helpers\\convertdatatabletodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4FFD398-5EBB-4D96-A7B2-A95343FB6928}|..\\DAL\\DAL.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\dal\\dal_dbhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{876347CF-1541-4BF4-A82C-D11413BD2FF6}|..\\BTL_API_USER\\BTL_API_USER.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\btl_api_user\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{876347CF-1541-4BF4-A82C-D11413BD2FF6}|..\\BTL_API_USER\\BTL_API_USER.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\btl_api_user\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F4FFD398-5EBB-4D96-A7B2-A95343FB6928}|..\\DAL\\DAL.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\dal\\dal_khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F30AA0BA-C34B-4E47-9ECC-E89E27C9C3D0}|..\\BUL\\BLL.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\bul\\bll_khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,17 +34,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "BLL_KhachHang.cs",
               "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BUL\\BLL_KhachHang.cs",
               "RelativeDocumentMoniker": "..\\BUL\\BLL_KhachHang.cs",
               "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BUL\\BLL_KhachHang.cs",
               "RelativeToolTip": "..\\BUL\\BLL_KhachHang.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAABcAAAAAAAAAAAAiwDkAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-30T05:15:33.943Z",
               "IsPinned": true,
@@ -46,13 +52,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "DAL_KhachHang.cs",
               "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\DAL\\DAL_KhachHang.cs",
               "RelativeDocumentMoniker": "..\\DAL\\DAL_KhachHang.cs",
               "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\DAL\\DAL_KhachHang.cs",
               "RelativeToolTip": "..\\DAL\\DAL_KhachHang.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABoAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAuwGUAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-30T05:04:13.89Z",
               "IsPinned": true,
@@ -60,7 +66,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "Program.cs",
               "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\Program.cs",
               "RelativeDocumentMoniker": "..\\BTL_API_USER\\Program.cs",
@@ -69,54 +75,74 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-25T09:36:35.731Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "launchSettings.json",
               "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "..\\BTL_API_USER\\Properties\\launchSettings.json",
               "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\Properties\\launchSettings.json",
               "RelativeToolTip": "..\\BTL_API_USER\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-12-30T05:34:24.085Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-30T05:34:24.085Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Ctrl_KhachHang.cs",
               "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\Controllers\\Ctrl_KhachHang.cs",
               "RelativeDocumentMoniker": "..\\BTL_API_USER\\Controllers\\Ctrl_KhachHang.cs",
               "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\Controllers\\Ctrl_KhachHang.cs",
               "RelativeToolTip": "..\\BTL_API_USER\\Controllers\\Ctrl_KhachHang.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwA4AAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAswHUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-30T05:35:29.907Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Customer.cs",
               "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\DTO\\Models\\Customer.cs",
               "RelativeDocumentMoniker": "..\\DTO\\Models\\Customer.cs",
               "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\DTO\\Models\\Customer.cs",
               "RelativeToolTip": "..\\DTO\\Models\\Customer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-30T05:40:01.439Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DAL_DBHelper.cs",
+              "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\DAL\\DAL_DBHelper.cs",
+              "RelativeDocumentMoniker": "..\\DAL\\DAL_DBHelper.cs",
+              "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\DAL\\DAL_DBHelper.cs",
+              "RelativeToolTip": "..\\DAL\\DAL_DBHelper.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAWwFcAAAB+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-30T05:51:04.669Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ConvertDataTableToDto.cs",
+              "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BUL\\Helpers\\ConvertDataTableToDto.cs",
+              "RelativeDocumentMoniker": "..\\BUL\\Helpers\\ConvertDataTableToDto.cs",
+              "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BUL\\Helpers\\ConvertDataTableToDto.cs",
+              "RelativeToolTip": "..\\BUL\\Helpers\\ConvertDataTableToDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-30T07:05:43.414Z",
               "EditorCaption": ""
             }
           ]
