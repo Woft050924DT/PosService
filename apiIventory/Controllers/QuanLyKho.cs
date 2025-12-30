@@ -6,12 +6,12 @@ namespace apiIventory.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    public class categoriesController : ControllerBase
     {
         private readonly bll_Categories _bll;
 
         // Constructor: nhận BLL qua DI
-        public CategoriesController(bll_Categories bll)
+        public categoriesController(bll_Categories bll)
         {
             _bll = bll;
         }
