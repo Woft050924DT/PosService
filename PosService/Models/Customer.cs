@@ -21,5 +21,9 @@ public partial class Customer
 
     public DateTime? CreatedAt { get; set; }
 
+    public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
+
     public virtual ICollection<SalesInvoice> SalesInvoices { get; set; } = new List<SalesInvoice>();
+
+    public virtual ICollection<SalesReturn> SalesReturns { get; set; } = new List<SalesReturn>();
 }

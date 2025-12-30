@@ -19,5 +19,7 @@ public partial class PurchaseOrderDetail
 
     public virtual Product? Product { get; set; }
 
+    public virtual ICollection<ProductLot> ProductLots { get; set; } = new List<ProductLot>();
+
     public virtual PurchaseOrder? Purchase { get; set; }
 }

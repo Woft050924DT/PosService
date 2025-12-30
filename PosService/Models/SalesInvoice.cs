@@ -33,5 +33,7 @@ public partial class SalesInvoice
 
     public virtual ICollection<SalesInvoiceDetail> SalesInvoiceDetails { get; set; } = new List<SalesInvoiceDetail>();
 
+    public virtual ICollection<SalesReturn> SalesReturns { get; set; } = new List<SalesReturn>();
+
     public virtual User? User { get; set; }
 }

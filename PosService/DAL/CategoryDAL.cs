@@ -9,9 +9,9 @@ namespace PosService.DAL
 {
     public class CategoryDAL
     {
-        private readonly HdvContext _db;
+        private readonly HDVContext _db;
 
-        public CategoryDAL(HdvContext db)
+        public CategoryDAL(HDVContext db)
         {
             _db = db;
         }

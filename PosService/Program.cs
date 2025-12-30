@@ -14,9 +14,10 @@ namespace PosService
             builder.Services.AddControllers();
 
             // Register DbContext and DAL
-            builder.Services.AddDbContext<HdvContext>(options =>
+            builder.Services.AddDbContext<HDVContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped<CategoryDAL>();
+            builder.Services.AddScoped<ProductDAL>(); // <- register ProductDAL for DI
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

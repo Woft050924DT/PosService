@@ -25,6 +25,8 @@ public partial class PurchaseOrder
 
     public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; } = new List<PurchaseOrderDetail>();
 
+    public virtual ICollection<PurchaseReturn> PurchaseReturns { get; set; } = new List<PurchaseReturn>();
+
     public virtual Supplier? Supplier { get; set; }
 
     public virtual User? User { get; set; }

@@ -14,9 +14,9 @@ namespace PosService.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly CategoryDAL _categoryDal;
-        private readonly HdvContext _db;
+        private readonly HDVContext _db;
 
-        public CategoryController(CategoryDAL categoryDal, HdvContext db)
+        public CategoryController(CategoryDAL categoryDal, HDVContext db)
         {
             _categoryDal = categoryDal;
             _db = db;
