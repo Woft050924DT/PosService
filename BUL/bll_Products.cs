@@ -48,5 +48,13 @@ namespace BLL
 
             return dal.AddProduct(product);
         }
+        public List<ProductStockDto> GetProductStock(
+        int? categoryId,
+        bool lowStock,
+        string search)
+        {
+            // Có thể thêm validate / business rule ở đây
+            return dal.GetProductStock(categoryId, lowStock, search);
+        }
     }
 }

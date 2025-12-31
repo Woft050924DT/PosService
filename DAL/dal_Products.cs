@@ -133,6 +133,64 @@ namespace DAL
 
         }
 
+        public List<ProductStockDto> GetProductStock(
+       int? categoryId,
+       bool lowStock,
+       string search)
+        {
+            var list = new List<ProductStockDto>();
+
+            using (SqlConnection conn = new SqlConnection(_conn))
+            {
+                string sql = @"
+                SELECT
+                    p.ProductID,
+                    p.ProductCode,
+                    p.ProductName,
+                    p.StockQuantity,
+                    p.MinStock,
+                    CASE
+                        WHEN p.StockQuantity <= p.MinStock THEN 'LowStock'
+                        ELSE 'InStock'
+                    END AS Status,
+                    p.CreatedAt
+                FROM Products p
+                WHERE p.IsActive = 1
+                  AND (@CategoryID IS NULL OR p.CategoryID = @CategoryID)
+                  AND (@LowStock = 0 OR p.StockQuantity <= p.MinStock)
+                  AND (
+                        @Search IS NULL
+                        OR p.ProductName LIKE N'%' + @Search + '%'
+                        OR p.ProductCode LIKE N'%' + @Search + '%'
+                        OR p.Barcode LIKE N'%' + @Search + '%'
+                  )
+                ORDER BY p.ProductName";
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@CategoryID", (object)categoryId ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@LowStock", lowStock ? 1 : 0);
+                cmd.Parameters.AddWithValue("@Search", string.IsNullOrEmpty(search) ? (object)DBNull.Value : search);
+
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(new ProductStockDto
+                    {
+                        ProductId = Convert.ToInt32(reader["ProductID"]),
+                        ProductCode = reader["ProductCode"].ToString(),
+                        ProductName = reader["ProductName"].ToString(),
+                        StockQuantity = Convert.ToInt32(reader["StockQuantity"]),
+                        MinStock = Convert.ToInt32(reader["MinStock"]),
+                        Status = reader["Status"].ToString(),
+                        LastUpdated = Convert.ToDateTime(reader["CreatedAt"])
+                    });
+                }
+            }
+
+            return list;
+        }
 
 
 
