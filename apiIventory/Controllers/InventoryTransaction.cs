@@ -70,7 +70,7 @@ namespace BTL_API_ADMIN.Controllers
         }
         [HttpDelete]
         [Route("delete/{TransactionId}")]
-        public IActionResult DeleteTransaction(int TransactionId) 
+        public IActionResult DeleteTransaction(int TransactionId)
         {
             if (TransactionId <= 0)
                 return BadRequest(new { error = "Id không hợp lệ" });
@@ -93,5 +93,43 @@ namespace BTL_API_ADMIN.Controllers
             }
         }
 
+        [HttpPost("adjust")]
+        public IActionResult AdjustStock([FromBody] InventoryAdjustRequest request)
+        {
+            var result = _bll.AdjustStock(
+                request.ProductId,
+                request.Quantity,
+                request.Notes,
+                request.UserId
+            );
+
+            return Ok(new
+            {
+                success = true,
+                message = "Điều chỉnh tồn kho thành công",
+                data = result
+            });
+        }
+
+
+
+        [HttpGet("transactions")]
+        public IActionResult GetTransactions(
+        int? productId,
+        string? transactionType,
+        DateTime? fromDate,
+        DateTime? toDate,
+        int page = 1,
+        int pageSize = 20)
+        {
+            var data = _bll.GetTransactions(
+                productId, transactionType, fromDate, toDate, page, pageSize);
+
+            return Ok(new
+            {
+                success = true,
+                data
+            });
+        }
     }
 }

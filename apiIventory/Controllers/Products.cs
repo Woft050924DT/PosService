@@ -66,6 +66,31 @@ namespace apiIventory.Controllers
                 ? Ok("Thêm sản phẩm thành công")
                 : BadRequest("Thêm sản phẩm thất bại");
         }
-        
+        [HttpGet("stock")]
+        public IActionResult GetProductStock(
+        [FromQuery] int? categoryId,
+        [FromQuery] bool lowStock = false,
+        [FromQuery] string search = null)
+        {
+            try
+            {
+                var data = _bll.GetProductStock(categoryId, lowStock, search);
+
+                return Ok(new
+                {
+                    success = true,
+                    data = data
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
+
     }
 }
