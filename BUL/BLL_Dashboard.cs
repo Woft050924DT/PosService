@@ -23,9 +23,9 @@ namespace BLL
         {
             return dal_dashboard.trackDailyGeneralDashboard(day, generaledValueDashboard);
         }
-        public GeneralDashboard trackWeeklyGeneralDashboard(int weekNumber)
+        public GeneralDashboard trackWeeklyGeneralDashboard(int year, int weekNumber)
         {
-            DateTime date = GetStartOf.convertWeek(weekNumber);
+            DateTime date = GetStartOf.convertWeek(year,weekNumber);
             return dal_dashboard.trackWeeklyGeneralDashboard(date, generaledValueDashboard);
         }
         public GeneralDashboard trackMonthlyGeneralDashboard(int monthNumber)

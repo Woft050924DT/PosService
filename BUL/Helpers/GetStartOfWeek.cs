@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,18 +9,12 @@ namespace BLL.Helpers
 {
     public class GetStartOf
     {
-        public static DateTime convertWeek(int weekNumber)
+        public static DateTime convertWeek(int year, int week)
         {
-            int year = DateTime.Now.Year;
+            if (week < 1 || week > 53)
+                throw new ArgumentOutOfRangeException(nameof(week));
 
-            DateTime jan4 = new DateTime(year, 1, 4);
-
-            int daysOffset = DayOfWeek.Monday - jan4.DayOfWeek;
-            DateTime firstMonday = jan4.AddDays(daysOffset);
-
-            DateTime result = firstMonday.AddDays((weekNumber - 1) * 7);
-
-            return result;
+            return ISOWeek.ToDateTime(year, week, DayOfWeek.Monday);
         }
         public static DateTime convertMonth( int month)
         {

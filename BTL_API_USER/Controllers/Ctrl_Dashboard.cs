@@ -32,14 +32,14 @@ namespace BTL_API_USER.Controllers
             return Ok(result);
         }
         [HttpGet("week")]
-        public IActionResult selectByWeek(int? weekNumber)
+        public IActionResult selectByWeek(int? weekNumber, int? year)
         {
             if (!weekNumber.HasValue)
             {
                 return BadRequest(new { message = "Week number parameter is required for weekly tracking" });
             }
 
-            var result = bll_dashboard.trackWeeklyGeneralDashboard(weekNumber.Value);
+            var result = bll_dashboard.trackWeeklyGeneralDashboard(year.Value,weekNumber.Value);
             if (result == null)
             {
                 return NotFound(new { message = "No data found for the specified week" });
