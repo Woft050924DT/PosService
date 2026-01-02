@@ -12,16 +12,16 @@
       "AbsoluteMoniker": "D:0:0:{F4FFD398-5EBB-4D96-A7B2-A95343FB6928}|..\\DAL\\DAL.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\dal\\dal_dashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{840FAABB-A9CE-46BD-BAB5-B6C6E1BC51B9}|..\\DTO\\DTO.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\dto\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F30AA0BA-C34B-4E47-9ECC-E89E27C9C3D0}|..\\BUL\\BLL.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\bul\\bll_khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{876347CF-1541-4BF4-A82C-D11413BD2FF6}|..\\BTL_API_USER\\BTL_API_USER.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\btl_api_user\\controllers\\ctrl_khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{840FAABB-A9CE-46BD-BAB5-B6C6E1BC51B9}|..\\DTO\\DTO.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\dto\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F30AA0BA-C34B-4E47-9ECC-E89E27C9C3D0}|..\\BUL\\BLL.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\bul\\helpers\\getstartofweek.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F30AA0BA-C34B-4E47-9ECC-E89E27C9C3D0}|..\\BUL\\BLL.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\bul\\bll_khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{876347CF-1541-4BF4-A82C-D11413BD2FF6}|..\\BTL_API_USER\\BTL_API_USER.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\btl_api_user\\controllers\\ctrl_khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F30AA0BA-C34B-4E47-9ECC-E89E27C9C3D0}|..\\BUL\\BLL.csproj|g:\\hoctap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiasp.net\\btl_huongdichvu\\backend_iventory\\bul\\helpers\\convertdatatabletodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -44,7 +44,7 @@
               "RelativeDocumentMoniker": "..\\DAL\\DAL_Dashboard.cs",
               "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\DAL\\DAL_Dashboard.cs",
               "RelativeToolTip": "..\\DAL\\DAL_Dashboard.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwC4AAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAJYAAAAAAAAAAAAqwKsAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-01T06:05:45.292Z",
               "IsPinned": true,
@@ -52,7 +52,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Notification.cs",
               "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\DTO\\Models\\Notification.cs",
               "RelativeDocumentMoniker": "..\\DTO\\Models\\Notification.cs",
@@ -72,7 +72,7 @@
               "RelativeDocumentMoniker": "..\\BUL\\BLL_Dashboard.cs",
               "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BUL\\BLL_Dashboard.cs",
               "RelativeToolTip": "..\\BUL\\BLL_Dashboard.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwBoAAABeAAAAAAAAAA==",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAqwGwAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-01T06:33:04.885Z",
               "IsPinned": true,
@@ -86,7 +86,7 @@
               "RelativeDocumentMoniker": "..\\BTL_API_USER\\Controllers\\Ctrl_Dashboard.cs",
               "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\Controllers\\Ctrl_Dashboard.cs",
               "RelativeToolTip": "..\\BTL_API_USER\\Controllers\\Ctrl_Dashboard.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAYwDIAAABKAAAAAAAAAA==",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAqwKAAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-01T06:41:23.285Z",
               "IsPinned": true,
@@ -104,13 +104,14 @@
               "RelativeDocumentMoniker": "..\\BUL\\Helpers\\GetStartOfWeek.cs",
               "ToolTip": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BUL\\Helpers\\GetStartOfWeek.cs",
               "RelativeToolTip": "..\\BUL\\Helpers\\GetStartOfWeek.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAAABAAAABEAAAAAAAAAA==",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAAABIAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-02T07:28:11.183Z"
+              "WhenOpened": "2026-01-02T07:28:11.183Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "BLL_KhachHang.cs",
               "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BUL\\BLL_KhachHang.cs",
               "RelativeDocumentMoniker": "..\\BUL\\BLL_KhachHang.cs",
@@ -118,11 +119,12 @@
               "RelativeToolTip": "..\\BUL\\BLL_KhachHang.cs",
               "ViewState": "AgIAACYAAAAAAAAAAAAgwCIAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T06:34:44.005Z"
+              "WhenOpened": "2026-01-01T06:34:44.005Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Ctrl_KhachHang.cs",
               "DocumentMoniker": "G:\\hocTap\\linh tinh\\m\u00F4n \u1EDF tr\u01B0\u1EDDng\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\Controllers\\Ctrl_KhachHang.cs",
               "RelativeDocumentMoniker": "..\\BTL_API_USER\\Controllers\\Ctrl_KhachHang.cs",
@@ -130,8 +132,7 @@
               "RelativeToolTip": "..\\BTL_API_USER\\Controllers\\Ctrl_KhachHang.cs",
               "ViewState": "AgIAAG0AAAAAAAAAAAAkwIcAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T06:44:13.905Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-01T06:44:13.905Z"
             },
             {
               "$type": "Document",
