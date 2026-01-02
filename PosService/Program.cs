@@ -28,7 +28,9 @@ namespace PosService
             builder.Services.AddDbContext<HDVContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped<CategoryDAL>();
-            builder.Services.AddScoped<ProductDAL>(); // <- register ProductDAL for DI
+            builder.Services.AddScoped<ProductDAL>();
+            builder.Services.AddScoped<SalesDAL>();
+
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -46,7 +48,7 @@ namespace PosService
 
             app.UseHttpsRedirection();
 
-            app.UseCors("AllowFrontend");   // thêm dòng này
+            app.UseCors("AllowFrontend");   
 
             app.UseAuthorization();
 
