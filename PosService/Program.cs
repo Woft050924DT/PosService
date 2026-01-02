@@ -13,6 +13,17 @@ namespace PosService
             // Add services to the container.
             builder.Services.AddControllers();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
             // Register DbContext and DAL
             builder.Services.AddDbContext<HDVContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -32,7 +43,10 @@ namespace PosService
                 app.UseSwaggerUI();
             }
 
+
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowFrontend");   // thêm dòng này
 
             app.UseAuthorization();
 
