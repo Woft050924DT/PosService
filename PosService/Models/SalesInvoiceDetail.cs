@@ -19,7 +19,15 @@ public partial class SalesInvoiceDetail
 
     public decimal LineTotal { get; set; }
 
+    public int? TaxId { get; set; }
+
+    public decimal? TaxAmount { get; set; }
+
+    public decimal? LinePromotionDiscount { get; set; }
+
     public virtual SalesInvoice? Invoice { get; set; }
 
     public virtual Product? Product { get; set; }
+
+    public virtual Taxis? Tax { get; set; }
 }

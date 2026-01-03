@@ -31,6 +31,10 @@ public partial class HDVContext : DbContext
 
     public virtual DbSet<ProductLot> ProductLots { get; set; }
 
+    public virtual DbSet<Promotion> Promotions { get; set; }
+
+    public virtual DbSet<Taxis> Taxes { get; set; }
+
     public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
 
     public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
@@ -256,6 +260,85 @@ public partial class HDVContext : DbContext
                 .HasConstraintName("FK__ProductLo__Purch__625A9A57");
         });
 
+        modelBuilder.Entity<Taxis>(entity =>
+        {
+            entity.HasKey(e => e.TaxId).HasName("PK__Taxes__TaxID");
+
+            entity.Property(e => e.TaxId).HasColumnName("TaxID");
+            entity.Property(e => e.TaxCode).HasMaxLength(50);
+            entity.Property(e => e.TaxName).HasMaxLength(150);
+            entity.Property(e => e.TaxRate).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+        });
+
+        modelBuilder.Entity<Promotion>(entity =>
+        {
+            entity.HasKey(e => e.PromotionId).HasName("PK__Promotio__52C42F2F11B613B4");
+
+            entity.HasIndex(e => new { e.IsActive, e.StartDate, e.EndDate }, "IX_Promotions_ActiveDates");
+
+            entity.HasIndex(e => e.PromotionCode, "IX_Promotions_Code");
+
+            entity.HasIndex(e => e.PromotionCode, "UQ__Promotio__A617E4B65ED5B330").IsUnique();
+
+            entity.Property(e => e.PromotionId).HasColumnName("PromotionID");
+            entity.Property(e => e.ApplyTo).HasMaxLength(50);
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.DiscountType).HasMaxLength(20);
+            entity.Property(e => e.DiscountValue).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.MinOrderAmount)
+                .HasDefaultValue(0m)
+                .HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.PromotionCode).HasMaxLength(50);
+            entity.Property(e => e.PromotionName).HasMaxLength(150);
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.Promotions)
+                .HasForeignKey(d => d.CreatedBy)
+                .HasConstraintName("FK__Promotion__Creat__01D345B0");
+
+            entity.HasMany(d => d.Categories).WithMany(p => p.Promotions)
+                .UsingEntity<Dictionary<string, object>>(
+                    "PromotionCategory",
+                    r => r.HasOne<Category>().WithMany()
+                        .HasForeignKey("CategoryId")
+                        .HasConstraintName("FK__Promotion__Categ__0880433F"),
+                    l => l.HasOne<Promotion>().WithMany()
+                        .HasForeignKey("PromotionId")
+                        .HasConstraintName("FK__Promotion__Promo__078C1F06"),
+                    j =>
+                    {
+                        j.HasKey("PromotionId", "CategoryId").HasName("PK__Promotio__F354BC8DFD60F040");
+                        j.ToTable("PromotionCategories");
+                        j.IndexerProperty<int>("PromotionId").HasColumnName("PromotionID");
+                        j.IndexerProperty<int>("CategoryId").HasColumnName("CategoryID");
+                    });
+
+            entity.HasMany(d => d.Products).WithMany(p => p.Promotions)
+                .UsingEntity<Dictionary<string, object>>(
+                    "PromotionProduct",
+                    r => r.HasOne<Product>().WithMany()
+                        .HasForeignKey("ProductId")
+                        .HasConstraintName("FK__Promotion__Produ__0C50D423"),
+                    l => l.HasOne<Promotion>().WithMany()
+                        .HasForeignKey("PromotionId")
+                        .HasConstraintName("FK__Promotion__Promo__0B5CAFEA"),
+                    j =>
+                    {
+                        j.HasKey("PromotionId", "ProductId").HasName("PK__Promotio__9984E3410DF5869A");
+                        j.ToTable("PromotionProducts");
+                        j.IndexerProperty<int>("PromotionId").HasColumnName("PromotionID");
+                        j.IndexerProperty<int>("ProductId").HasColumnName("ProductID");
+                    });
+        });
+
         modelBuilder.Entity<PurchaseOrder>(entity =>
         {
             entity.HasKey(e => e.PurchaseId).HasName("PK__Purchase__6B0A6BDE65E69766");
@@ -400,6 +483,10 @@ public partial class HDVContext : DbContext
                 .HasDefaultValue(0m)
                 .HasColumnType("decimal(18, 2)");
             entity.Property(e => e.PaymentMethod).HasMaxLength(20);
+            entity.Property(e => e.PromotionDiscount)
+                .HasDefaultValue(0m)
+                .HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.PromotionId).HasColumnName("PromotionID");
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
                 .HasDefaultValue("Completed");
@@ -415,6 +502,10 @@ public partial class HDVContext : DbContext
                 .HasForeignKey(d => d.CustomerId)
                 .HasConstraintName("FK__SalesInvo__Custo__68487DD7");
 
+            entity.HasOne(d => d.Promotion).WithMany(p => p.SalesInvoices)
+                .HasForeignKey(d => d.PromotionId)
+                .HasConstraintName("FK__SalesInvo__Promo__10216507");
+
             entity.HasOne(d => d.User).WithMany(p => p.SalesInvoices)
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("FK__SalesInvo__UserI__693CA210");
@@ -429,6 +520,13 @@ public partial class HDVContext : DbContext
                 .HasDefaultValue(0m)
                 .HasColumnType("decimal(18, 2)");
             entity.Property(e => e.InvoiceId).HasColumnName("InvoiceID");
+            entity.Property(e => e.TaxId).HasColumnName("TaxID");
+            entity.Property(e => e.TaxAmount)
+                .HasDefaultValue(0m)
+                .HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.LinePromotionDiscount)
+                .HasDefaultValue(0m)
+                .HasColumnType("decimal(18, 2)");
             entity.Property(e => e.LineTotal).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
             entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
@@ -440,6 +538,10 @@ public partial class HDVContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.SalesInvoiceDetails)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("FK__SalesInvo__Produ__71D1E811");
+
+            entity.HasOne(d => d.Tax).WithMany(p => p.SalesInvoiceDetails)
+                .HasForeignKey(d => d.TaxId)
+                .HasConstraintName("FK__SalesInvo__TaxID__72C60C4A");
         });
 
         modelBuilder.Entity<SalesReturn>(entity =>

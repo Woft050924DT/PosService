@@ -24,6 +24,7 @@ namespace PosService.DAL
                 .AsNoTracking()
                 .Include(si => si.Customer)
                 .Include(si => si.User)
+                .Include(si => si.Promotion)
                 .Include(si => si.SalesInvoiceDetails).ThenInclude(d => d.Product)
                 .AsQueryable();
 
@@ -48,6 +49,10 @@ namespace PosService.DAL
                     UserId = si.UserId,
                     SubTotal = si.SubTotal,
                     Discount = si.Discount,
+                    PromotionId = si.PromotionId,
+                    PromotionCode = si.Promotion != null ? si.Promotion.PromotionCode : null,
+                    PromotionName = si.Promotion != null ? si.Promotion.PromotionName : null,
+                    PromotionDiscount = si.PromotionDiscount,
                     TotalAmount = si.TotalAmount,
                     PaidAmount = si.PaidAmount,
                     PaymentMethod = si.PaymentMethod,
@@ -61,6 +66,7 @@ namespace PosService.DAL
                         Quantity = d.Quantity,
                         UnitPrice = d.UnitPrice,
                         Discount = d.Discount,
+                        LinePromotionDiscount = d.LinePromotionDiscount,
                         LineTotal = d.LineTotal
                     }).ToList()
                 })
@@ -75,6 +81,7 @@ namespace PosService.DAL
                 .AsNoTracking()
                 .Include(x => x.Customer)
                 .Include(x => x.User)
+                .Include(x => x.Promotion)
                 .Include(x => x.SalesInvoiceDetails).ThenInclude(d => d.Product)
                 .FirstOrDefaultAsync(x => x.InvoiceId == id);
 
@@ -90,6 +97,10 @@ namespace PosService.DAL
                 UserId = si.UserId,
                 SubTotal = si.SubTotal,
                 Discount = si.Discount,
+                PromotionId = si.PromotionId,
+                PromotionCode = si.Promotion?.PromotionCode,
+                PromotionName = si.Promotion?.PromotionName,
+                PromotionDiscount = si.PromotionDiscount,
                 TotalAmount = si.TotalAmount,
                 PaidAmount = si.PaidAmount,
                 PaymentMethod = si.PaymentMethod,
@@ -103,6 +114,7 @@ namespace PosService.DAL
                     Quantity = d.Quantity,
                     UnitPrice = d.UnitPrice,
                     Discount = d.Discount,
+                    LinePromotionDiscount = d.LinePromotionDiscount,
                     LineTotal = d.LineTotal
                 }).ToList()
             };
@@ -124,13 +136,11 @@ namespace PosService.DAL
                     throw new InvalidOperationException($"ProductId {d.ProductId} not found.");
             }
 
-            // Compute totals
             decimal subTotal = 0m;
             var detailEntities = new List<SalesInvoiceDetail>();
             foreach (var d in dto.Details)
             {
                 var prod = products.First(p => p.ProductId == d.ProductId);
-                // check stock if available
                 if (prod.StockQuantity.HasValue && prod.StockQuantity.Value < d.Quantity)
                 {
                     throw new InvalidOperationException($"Insufficient stock for product '{prod.ProductName}' (id={prod.ProductId}). Available: {prod.StockQuantity}, requested: {d.Quantity}");
@@ -155,8 +165,114 @@ namespace PosService.DAL
             }
 
             decimal overallDiscount = dto.Discount ?? 0m;
-            decimal totalAmount = subTotal - overallDiscount;
-            if (totalAmount < 0) totalAmount = 0m;
+            Promotion? promotion = null;
+            decimal promotionDiscount = 0m;
+
+            if (dto.PromotionId.HasValue || !string.IsNullOrWhiteSpace(dto.PromotionCode))
+            {
+                var query = _db.Promotions
+                    .Include(p => p.Products)
+                    .Include(p => p.Categories)
+                    .AsQueryable();
+
+                if (dto.PromotionId.HasValue)
+                {
+                    query = query.Where(p => p.PromotionId == dto.PromotionId.Value);
+                }
+                else if (!string.IsNullOrWhiteSpace(dto.PromotionCode))
+                {
+                    var code = dto.PromotionCode!.Trim();
+                    query = query.Where(p => p.PromotionCode == code);
+                }
+
+                promotion = await query.FirstOrDefaultAsync();
+                if (promotion == null)
+                {
+                    throw new InvalidOperationException("Promotion not found.");
+                }
+
+                var today = DateOnly.FromDateTime(DateTime.Today);
+                if (promotion.IsActive != true || promotion.StartDate > today || (promotion.EndDate.HasValue && promotion.EndDate.Value < today))
+                {
+                    throw new InvalidOperationException("Promotion is not active.");
+                }
+
+                if (promotion.MinOrderAmount.HasValue && subTotal < promotion.MinOrderAmount.Value)
+                {
+                    throw new InvalidOperationException("Order does not meet minimum amount for promotion.");
+                }
+
+                var discountType = promotion.DiscountType.ToLowerInvariant();
+                var applyTo = promotion.ApplyTo.ToLowerInvariant();
+
+                if (applyTo == "order" || applyTo == "invoice")
+                {
+                    var baseAmount = subTotal;
+                    decimal promoAmount;
+                    if (discountType == "percent" || discountType == "percentage")
+                    {
+                        promoAmount = baseAmount * promotion.DiscountValue / 100m;
+                    }
+                    else
+                    {
+                        promoAmount = promotion.DiscountValue;
+                    }
+
+                    if (promoAmount < 0m) promoAmount = 0m;
+                    if (promoAmount > baseAmount) promoAmount = baseAmount;
+                    promotionDiscount = promoAmount;
+                }
+                else if (applyTo == "product" || applyTo == "category")
+                {
+                    var promotionProductIds = new HashSet<int>(promotion.Products.Select(p => p.ProductId));
+                    var promotionCategoryIds = new HashSet<int>(promotion.Categories.Select(c => c.CategoryId));
+
+                    foreach (var det in detailEntities)
+                    {
+                        if (!det.ProductId.HasValue)
+                        {
+                            continue;
+                        }
+
+                        var prod = products.First(p => p.ProductId == det.ProductId.Value);
+
+                        bool match = false;
+                        if (applyTo == "product" && promotionProductIds.Contains(prod.ProductId))
+                        {
+                            match = true;
+                        }
+                        else if (applyTo == "category" && prod.CategoryId.HasValue && promotionCategoryIds.Contains(prod.CategoryId.Value))
+                        {
+                            match = true;
+                        }
+
+                        if (!match)
+                        {
+                            continue;
+                        }
+
+                        var lineBaseAmount = det.LineTotal;
+                        decimal linePromo;
+                        if (discountType == "percent" || discountType == "percentage")
+                        {
+                            linePromo = lineBaseAmount * promotion.DiscountValue / 100m;
+                        }
+                        else
+                        {
+                            linePromo = promotion.DiscountValue;
+                        }
+
+                        if (linePromo < 0m) linePromo = 0m;
+                        if (linePromo > lineBaseAmount) linePromo = lineBaseAmount;
+
+                        det.LinePromotionDiscount = linePromo;
+                        promotionDiscount += linePromo;
+                    }
+                }
+            }
+
+            decimal totalAmount = subTotal - overallDiscount - promotionDiscount;
+            if (totalAmount < 0m) totalAmount = 0m;
 
             // Generate invoice number if not provided
             string invoiceNumber = !string.IsNullOrWhiteSpace(dto.InvoiceNumber)
@@ -171,6 +287,8 @@ namespace PosService.DAL
                 UserId = dto.UserId,
                 SubTotal = subTotal,
                 Discount = overallDiscount,
+                PromotionId = promotion?.PromotionId,
+                PromotionDiscount = promotionDiscount,
                 TotalAmount = totalAmount,
                 PaidAmount = dto.PaidAmount,
                 PaymentMethod = dto.PaymentMethod,

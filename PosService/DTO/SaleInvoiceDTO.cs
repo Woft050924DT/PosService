@@ -11,6 +11,7 @@ namespace PosService.DTO
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal? Discount { get; set; }
+        public decimal? LinePromotionDiscount { get; set; }
         public decimal LineTotal { get; set; }
     }
 
@@ -23,7 +24,11 @@ namespace PosService.DTO
         public string? CustomerName { get; set; }
         public int? UserId { get; set; }
         public decimal? SubTotal { get; set; }
-        public decimal? Discount { get; set; }            // overall discount
+        public decimal? Discount { get; set; }
+        public int? PromotionId { get; set; }
+        public string? PromotionCode { get; set; }
+        public string? PromotionName { get; set; }
+        public decimal? PromotionDiscount { get; set; }
         public decimal? TotalAmount { get; set; }
         public decimal? PaidAmount { get; set; }
         public string? PaymentMethod { get; set; }
@@ -48,6 +53,8 @@ namespace PosService.DTO
         public int? CustomerId { get; set; }
         public int? UserId { get; set; }
         public decimal? Discount { get; set; } // overall invoice discount
+        public int? PromotionId { get; set; }
+        public string? PromotionCode { get; set; }
         public decimal? PaidAmount { get; set; }
         public string? PaymentMethod { get; set; }
         public string? Notes { get; set; }

@@ -29,7 +29,13 @@ public partial class SalesInvoice
 
     public string? Notes { get; set; }
 
+    public int? PromotionId { get; set; }
+
+    public decimal? PromotionDiscount { get; set; }
+
     public virtual Customer? Customer { get; set; }
+
+    public virtual Promotion? Promotion { get; set; }
 
     public virtual ICollection<SalesInvoiceDetail> SalesInvoiceDetails { get; set; } = new List<SalesInvoiceDetail>();
 
