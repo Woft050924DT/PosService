@@ -30,6 +30,7 @@ namespace PosService
             builder.Services.AddScoped<CategoryDAL>();
             builder.Services.AddScoped<ProductDAL>();
             builder.Services.AddScoped<SalesDAL>();
+            builder.Services.AddScoped<PromotionDAL>();
 
             var jwtSection = builder.Configuration.GetSection("Jwt");
             var jwtKey = jwtSection["Key"];

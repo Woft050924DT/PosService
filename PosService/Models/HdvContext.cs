@@ -33,6 +33,8 @@ public partial class HDVContext : DbContext
 
     public virtual DbSet<Promotion> Promotions { get; set; }
 
+    public virtual DbSet<Taxis> Taxes { get; set; }
+
     public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
 
     public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
@@ -55,13 +57,11 @@ public partial class HDVContext : DbContext
 
     public virtual DbSet<Supplier> Suppliers { get; set; }
 
-    public virtual DbSet<Taxis> Taxes { get; set; }
-
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-BHBE3TE;Database=HDV;Trusted_Connection=True;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-BHBE3TE;Database=HDV;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -258,6 +258,21 @@ public partial class HDVContext : DbContext
             entity.HasOne(d => d.PurchaseDetail).WithMany(p => p.ProductLots)
                 .HasForeignKey(d => d.PurchaseDetailId)
                 .HasConstraintName("FK__ProductLo__Purch__625A9A57");
+        });
+
+        modelBuilder.Entity<Taxis>(entity =>
+        {
+            entity.HasKey(e => e.TaxId).HasName("PK__Taxes__TaxID");
+
+            entity.Property(e => e.TaxId).HasColumnName("TaxID");
+            entity.Property(e => e.TaxCode).HasMaxLength(50);
+            entity.Property(e => e.TaxName).HasMaxLength(150);
+            entity.Property(e => e.TaxRate).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
         });
 
         modelBuilder.Entity<Promotion>(entity =>
@@ -505,15 +520,15 @@ public partial class HDVContext : DbContext
                 .HasDefaultValue(0m)
                 .HasColumnType("decimal(18, 2)");
             entity.Property(e => e.InvoiceId).HasColumnName("InvoiceID");
+            entity.Property(e => e.TaxId).HasColumnName("TaxID");
+            entity.Property(e => e.TaxAmount)
+                .HasDefaultValue(0m)
+                .HasColumnType("decimal(18, 2)");
             entity.Property(e => e.LinePromotionDiscount)
                 .HasDefaultValue(0m)
                 .HasColumnType("decimal(18, 2)");
             entity.Property(e => e.LineTotal).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
-            entity.Property(e => e.TaxAmount)
-                .HasDefaultValue(0m)
-                .HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.TaxId).HasColumnName("TaxID");
             entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
 
             entity.HasOne(d => d.Invoice).WithMany(p => p.SalesInvoiceDetails)
@@ -526,7 +541,7 @@ public partial class HDVContext : DbContext
 
             entity.HasOne(d => d.Tax).WithMany(p => p.SalesInvoiceDetails)
                 .HasForeignKey(d => d.TaxId)
-                .HasConstraintName("FK__SalesInvo__TaxID__0E391C95");
+                .HasConstraintName("FK__SalesInvo__TaxID__72C60C4A");
         });
 
         modelBuilder.Entity<SalesReturn>(entity =>
@@ -627,27 +642,6 @@ public partial class HDVContext : DbContext
             entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.Phone).HasMaxLength(20);
             entity.Property(e => e.SupplierName).HasMaxLength(150);
-        });
-
-        modelBuilder.Entity<Taxis>(entity =>
-        {
-            entity.HasKey(e => e.TaxId).HasName("PK__Taxes__711BE08C4BBD2526");
-
-            entity.HasIndex(e => e.TaxCode, "IX_Taxes_TaxCode");
-
-            entity.HasIndex(e => e.TaxRate, "IX_Taxes_TaxRate");
-
-            entity.HasIndex(e => e.TaxCode, "UQ__Taxes__12945A28AD697948").IsUnique();
-
-            entity.Property(e => e.TaxId).HasColumnName("TaxID");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Description).HasMaxLength(255);
-            entity.Property(e => e.IsActive).HasDefaultValue(true);
-            entity.Property(e => e.TaxCode).HasMaxLength(20);
-            entity.Property(e => e.TaxName).HasMaxLength(100);
-            entity.Property(e => e.TaxRate).HasColumnType("decimal(5, 2)");
         });
 
         modelBuilder.Entity<User>(entity =>
