@@ -179,7 +179,7 @@ namespace PosService.DAL
                 {
                     query = query.Where(p => p.PromotionId == dto.PromotionId.Value);
                 }
-                else if (!string.IsNullOrWhiteSpace(dto.PromotionCode))
+                else if (!string.IsNullOrWhiteSpace(dto.PromotionCode)) 
                 {
                     var code = dto.PromotionCode!.Trim();
                     query = query.Where(p => p.PromotionCode == code);
