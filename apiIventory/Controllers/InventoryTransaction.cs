@@ -5,6 +5,7 @@ namespace BTL_API_ADMIN.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class InventoryController : ControllerBase
     {
         private readonly bll_InventoryTransaction _bll;
