@@ -21,5 +21,15 @@ namespace PosService.DTO
         public bool? IsActive { get; set; }
         public DateTime? CreatedAt { get; set; }
     }
+    public class ProductStockDto
+    {
+        public int ProductId { get; set; }
+        public string ProductCode { get; set; }
+        public string ProductName { get; set; }
+        public int StockQuantity { get; set; }
+        public int MinStock { get; set; }
+        public string Status { get; set; }
+        public DateTime LastUpdated { get; set; }
+    }
 }
 

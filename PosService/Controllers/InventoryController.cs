@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PosService.DAL;
@@ -63,6 +63,22 @@ namespace PosService.Controllers
             if (!ok) return NotFound();
             return NoContent();
         }
+
+        [HttpGet("stock")]
+        public IActionResult GetProductStock(
+    [FromQuery] int? categoryId,
+    [FromQuery] bool lowStock = false,
+    [FromQuery] string? search = null)
+        {
+            var data = _inventoryDal.GetProductStock(categoryId, lowStock, search);
+
+            if (data == null || !data.Any())
+                return NotFound(new { message ="không có sản phẩm phù hợp"});
+
+            return Ok(data);
+        }
+
+
     }
 }
 
