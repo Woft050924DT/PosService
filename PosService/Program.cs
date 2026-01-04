@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using BLL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PosService.DAL;
@@ -33,6 +34,12 @@ namespace PosService
             builder.Services.AddScoped<PromotionDAL>();
             builder.Services.AddScoped<TaxDAL>();
             builder.Services.AddScoped<InventoryDAL>();
+            builder.Services.AddScoped<bll_Inventory>();
+            builder.Services.AddScoped<bll_Category>();
+            builder.Services.AddScoped<bll_Products>();
+            builder.Services.AddScoped<bll_Promotions>();
+            builder.Services.AddScoped<bll_Tax>();
+            builder.Services.AddScoped<bll_Sales>();
 
             var jwtSection = builder.Configuration.GetSection("Jwt");
             var jwtKey = jwtSection["Key"];

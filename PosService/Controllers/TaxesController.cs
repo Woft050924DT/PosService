@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using BLL;
 using Microsoft.AspNetCore.Mvc;
-using PosService.DAL;
 using PosService.DTO;
 
 namespace PosService.Controllers
@@ -10,51 +9,52 @@ namespace PosService.Controllers
     [Route("api/[controller]")]
     public class TaxesController : ControllerBase
     {
-        private readonly TaxDAL _taxDal;
+        private readonly bll_Tax _taxBll;
 
-        public TaxesController(TaxDAL taxDal)
+        public TaxesController(bll_Tax taxBll)
         {
-            _taxDal = taxDal;
+            _taxBll = taxBll;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TaxDTO>>> GetAll([FromQuery] bool? isActive = null, [FromQuery] string? q = null)
+        public ActionResult<List<TaxDTO>> GetAll([FromQuery] bool? isActive = null, [FromQuery] string? q = null)
         {
-            var list = await _taxDal.GetAllAsync(isActive, q);
+            var list = _taxBll.GetAllTax(isActive, q);
             return Ok(list);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<TaxDTO>> GetById(int id)
+        public ActionResult<TaxDTO> GetById(int id)
         {
-            var tax = await _taxDal.GetByIdAsync(id);
+            var tax = _taxBll.GetTaxById(id);
             if (tax == null) return NotFound();
             return Ok(tax);
         }
 
         [HttpPost]
-        public async Task<ActionResult<TaxDTO>> Create([FromBody] CreateTaxDTO dto)
+        public ActionResult<bool> Create([FromBody] CreateTaxDTO dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var created = await _taxDal.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = created.TaxId }, created);
+            var ok = _taxBll.CreateTax(dto);
+            if (!ok) return BadRequest();
+            return Ok(true);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateTaxDTO dto)
+        public IActionResult Update(int id, [FromBody] UpdateTaxDTO dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var updated = await _taxDal.UpdateAsync(id, dto);
-            if (updated == null) return NotFound();
+            var ok = _taxBll.UpdateTax(id, dto);
+            if (!ok) return NotFound();
             return NoContent();
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var ok = await _taxDal.DeleteAsync(id);
+            var ok = _taxBll.DeleteTax(id);
             if (!ok) return NotFound();
             return NoContent();
         }
