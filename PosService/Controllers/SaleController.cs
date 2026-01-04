@@ -1,9 +1,7 @@
-﻿
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using BLL;
 using Microsoft.AspNetCore.Mvc;
-using PosService.DAL;
 using PosService.DTO;
 
 namespace PosService.Controllers
@@ -12,26 +10,26 @@ namespace PosService.Controllers
     [Route("api/[controller]")]
     public class SalesController : ControllerBase
     {
-        private readonly SalesDAL _salesDal;
+        private readonly bll_Sales _salesBll;
 
-        public SalesController(SalesDAL salesDal)
+        public SalesController(bll_Sales salesBll)
         {
-            _salesDal = salesDal;
+            _salesBll = salesBll;
         }
 
         // GET: api/sales?customerId=1&from=2025-01-01&to=2025-01-31
         [HttpGet]
-        public async Task<ActionResult<List<SalesInvoiceDTO>>> GetAll([FromQuery] int? customerId = null, [FromQuery] DateTime? from = null, [FromQuery] DateTime? to = null)
+        public ActionResult<List<SalesInvoiceDTO>> GetAll([FromQuery] int? customerId = null, [FromQuery] DateTime? from = null, [FromQuery] DateTime? to = null)
         {
-            var list = await _salesDal.GetAllAsync(customerId, from, to);
+            var list = _salesBll.GetAllSales(customerId, from, to);
             return Ok(list);
         }
 
         // GET: api/sales/5
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<SalesInvoiceDTO>> GetById(int id)
+        public ActionResult<SalesInvoiceDTO> GetById(int id)
         {
-            var inv = await _salesDal.GetByIdAsync(id);
+            var inv = _salesBll.GetSalesInvoiceById(id);
             if (inv == null) return NotFound();
             return Ok(inv);
         }
@@ -39,13 +37,14 @@ namespace PosService.Controllers
         // POST: api/sales
         // Create a sales invoice (bán hàng)
         [HttpPost]
-        public async Task<ActionResult<SalesInvoiceDTO>> Create([FromBody] CreateSalesInvoiceDTO dto)
+        public ActionResult<bool> Create([FromBody] CreateSalesInvoiceDTO dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             try
             {
-                var created = await _salesDal.CreateAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = created.InvoiceId }, created);
+                var ok = _salesBll.CreateSalesInvoice(dto);
+                if (!ok) return BadRequest();
+                return Ok(true);
             }
             catch (InvalidOperationException ex)
             {
@@ -56,9 +55,9 @@ namespace PosService.Controllers
         // For "xuất bill" you can GET the invoice by id and render it on client or server.
         // GET: api/sales/5/print  -> returns invoice DTO (client generates printable bill)
         [HttpGet("{id:int}/print")]
-        public async Task<ActionResult<SalesInvoiceDTO>> Print(int id)
+        public ActionResult<SalesInvoiceDTO> Print(int id)
         {
-            var inv = await _salesDal.GetByIdAsync(id);
+            var inv = _salesBll.GetSalesInvoiceById(id);
             if (inv == null) return NotFound();
             return Ok(inv);
         }

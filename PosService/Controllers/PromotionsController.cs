@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using BLL;
 using Microsoft.AspNetCore.Mvc;
-using PosService.DAL;
 using PosService.DTO;
 
 namespace PosService.Controllers
@@ -10,36 +9,37 @@ namespace PosService.Controllers
     [Route("api/[controller]")]
     public class PromotionsController : ControllerBase
     {
-        private readonly PromotionDAL _promotionDal;
+        private readonly bll_Promotions _promotionBll;
 
-        public PromotionsController(PromotionDAL promotionDal)
+        public PromotionsController(bll_Promotions promotionBll)
         {
-            _promotionDal = promotionDal;
+            _promotionBll = promotionBll;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<PromotionDTO>>> GetAll([FromQuery] bool? isActive = null)
+        public ActionResult<List<PromotionDTO>> GetAll([FromQuery] bool? isActive = null)
         {
-            var list = await _promotionDal.GetAllAsync(isActive);
+            var list = _promotionBll.GetAllPromotions(isActive);
             return Ok(list);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<PromotionDTO>> GetById(int id)
+        public ActionResult<PromotionDTO> GetById(int id)
         {
-            var promotion = await _promotionDal.GetByIdAsync(id);
+            var promotion = _promotionBll.GetPromotionById(id);
             if (promotion == null) return NotFound();
             return Ok(promotion);
         }
 
         [HttpPost]
-        public async Task<ActionResult<PromotionDTO>> Create([FromBody] CreatePromotionDTO dto)
+        public ActionResult<bool> Create([FromBody] CreatePromotionDTO dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (dto == null) return BadRequest();
 
-            var created = await _promotionDal.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = created.PromotionId }, created);
+            var ok = _promotionBll.CreatePromotion(dto);
+            if (!ok) return BadRequest();
+            return Ok(true);
         }
     }
 }
