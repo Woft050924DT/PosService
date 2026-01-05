@@ -23,13 +23,20 @@ namespace BTL_API_USER.Controllers
             {
                 return BadRequest(new { message = "Date parameter is required" });
             }
-
-            var result = bll_dashboard.trackDailyGeneralDashboard(date.Value);
-            if (result == null)
+            try
             {
-                return NotFound(new { message = "No data found for the specified date" });
+
+                var result = bll_dashboard.trackDailyGeneralDashboard(date.Value);
+                if (result == null)
+                {
+                    return NotFound(new { message = "No data found for the specified date" });
+                }
+                return Ok(result);
             }
-            return Ok(result);
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error in API: " + ex.Message });
+            }
         }
         [HttpGet("week")]
         public IActionResult selectByWeek(int? weekNumber, int? year)
@@ -38,13 +45,20 @@ namespace BTL_API_USER.Controllers
             {
                 return BadRequest(new { message = "Week number parameter is required for weekly tracking" });
             }
-
-            var result = bll_dashboard.trackWeeklyGeneralDashboard(year.Value,weekNumber.Value);
-            if (result == null)
+            try
             {
-                return NotFound(new { message = "No data found for the specified week" });
+
+                var result = bll_dashboard.trackWeeklyGeneralDashboard(year.Value, weekNumber.Value);
+                if (result == null)
+                {
+                    return NotFound(new { message = "No data found for the specified week" });
+                }
+                return Ok(result);
             }
-            return Ok(result);
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error in API: " + ex.Message });
+            }
         }
         [HttpGet("month")]
         public IActionResult selectByMonth(int? monthNumber)
@@ -53,13 +67,19 @@ namespace BTL_API_USER.Controllers
             {
                 return BadRequest(new { message = "Month number parameter is required for monthly tracking" });
             }
-
-            var result = bll_dashboard.trackMonthlyGeneralDashboard(monthNumber.Value);
-            if (result == null)
+            try
             {
-                return NotFound(new { message = "No data found for the specified month" });
+
+                var result = bll_dashboard.trackMonthlyGeneralDashboard(monthNumber.Value);
+                if (result == null)
+                {
+                    return NotFound(new { message = "No data found for the specified month" });
+                }
+                return Ok(result);
             }
-            return Ok(result);
+            catch (Exception ex) {
+                return StatusCode(500, new { message = "Error in API: " + ex.Message });
+            }
         }
 
         // get api/Dashboard/notifications
@@ -108,6 +128,70 @@ namespace BTL_API_USER.Controllers
             }
             }
             catch(Exception ex)
+            {
+                return StatusCode(500, new { message = "Error in API: " + ex.Message });
+            }
+        }
+
+        //Get api/Dashboard/revenue/week-month
+        [HttpGet("revenue/week-month")]
+        public IActionResult calculateRevenue(string type, int lastDate, int currentDate, int year)
+        {
+            if (string.IsNullOrEmpty(type) || lastDate <= 0 || currentDate <= 0 || year <= 0)
+            {
+                return BadRequest(new { message = "Invalid input information" });
+            }
+            try
+            {
+                object result = bll_dashboard.CalculateRevenue(type, lastDate, currentDate, year);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error in API: " + ex.Message });
+            }
+        }
+        //Get api/Dashboard/revenue/day
+        [HttpGet("revenue/day")]
+        public IActionResult calculateRevenue(string type, DateTime lastDate, DateTime currentDate)
+        {
+            // Kiểm tra điều kiện đầu vào
+            if (string.IsNullOrEmpty(type))
+            {
+                return BadRequest(new { message = "Invalid input information" });
+            }
+
+            // Kiểm tra DateTime hợp lệ
+            if (lastDate == DateTime.MinValue || currentDate == DateTime.MinValue)
+            {
+                return BadRequest(new { message = "Invalid date information" });
+            }
+
+
+            try
+            {
+                object result = bll_dashboard.calculateRevenue(type, lastDate, currentDate);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error in API: " + ex.Message });
+            }
+        }
+        //Get api/Dashboard/7dayrevenues
+        [HttpGet("7dayrevenues")]
+        public IActionResult select7dayRevenue(DateTime? date)
+        {
+            if (!date.HasValue)
+            {
+                return BadRequest(new { message = "Date parameter is required" });
+            }
+            try
+            {
+                object result=bll_dashboard.select7dayRevenue(date.Value);
+                return Ok(result);
+
+            }catch(Exception ex)
             {
                 return StatusCode(500, new { message = "Error in API: " + ex.Message });
             }

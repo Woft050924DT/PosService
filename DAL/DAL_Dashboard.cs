@@ -20,34 +20,34 @@ namespace DAL
         {
             try
             {
-            using (SqlConnection connection = new SqlConnection(dbHelper.StrConnection))
-            {
-                connection.Open();
-
-                using (SqlCommand cmd = new SqlCommand("trackDailyGeneralDashboard", connection))
+                using (SqlConnection connection = new SqlConnection(dbHelper.StrConnection))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@day", day);
+                    connection.Open();
 
-                    cmd.Parameters.Add("@dailyRevenue", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@dailyCustomers", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@dailyOrderQuantitys", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@dailyTotalProducts", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    using (SqlCommand cmd = new SqlCommand("trackDailyGeneralDashboard", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@day", day);
 
-                    cmd.ExecuteNonQuery();
+                        cmd.Parameters.Add("@dailyRevenue", SqlDbType.Int).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@dailyCustomers", SqlDbType.Int).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@dailyOrderQuantitys", SqlDbType.Int).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@dailyTotalProducts", SqlDbType.Int).Direction = ParameterDirection.Output;
 
-                    model.Revenue = (int)cmd.Parameters["@dailyRevenue"].Value;
-                    model.Customers = (int)cmd.Parameters["@dailyCustomers"].Value;
-                    model.OrderQuantity = (int)cmd.Parameters["@dailyOrderQuantitys"].Value;
-                    model.TotalProducts = (int)cmd.Parameters["@dailyTotalProducts"].Value;
+                        cmd.ExecuteNonQuery();
+
+                        model.Revenue = (int)cmd.Parameters["@dailyRevenue"].Value;
+                        model.Customers = (int)cmd.Parameters["@dailyCustomers"].Value;
+                        model.OrderQuantity = (int)cmd.Parameters["@dailyOrderQuantitys"].Value;
+                        model.TotalProducts = (int)cmd.Parameters["@dailyTotalProducts"].Value;
+                    }
+                    connection.Close();
                 }
-                connection.Close();
-            }
-            return model;
+                return model;
             }
             catch (Exception ex)
             {
-                throw new Exception("lỗi ở dal", ex);
+                throw new Exception("Error in DAL: " + ex.Message, ex);
             }
         }
         public GeneralDashboard trackWeeklyGeneralDashboard(DateTime date, GeneralDashboard model)
@@ -81,7 +81,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("lỗi ở dal", ex);
+                throw new Exception("Error in DAL: " + ex.Message, ex);
             }
         }
         public GeneralDashboard trackMonthlyGeneralDashboard(DateTime date, GeneralDashboard model)
@@ -115,17 +115,17 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("lỗi ở dal", ex);
+                throw new Exception("Error in DAL: " + ex.Message, ex);
             }
         }
         public DataTable selectNotifications(int receiverID, int pageSize, int pageNumber)
         {
-           
+
             try
             {
                 string msgError = "";
-                DataTable result = dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "selectNotification", 
-                    "@receiverID", receiverID, 
+                DataTable result = dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "selectNotification",
+                    "@receiverID", receiverID,
                     "@pageNumber", pageNumber,
                     "@pageSize", pageSize);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
@@ -153,6 +153,61 @@ namespace DAL
             }
             catch (Exception ex)
             {
+                throw new Exception("Error in DAL: " + ex.Message, ex);
+            }
+        }
+        public object calculateRevenue(DateTime lastDate, DateTime currentDate, string type)
+        {
+            try
+            {
+                string msgError = "";
+                object result = dbHelper.ExecuteScalarSProcedureWithTransaction(
+                    out msgError,
+                    "matchDoanhThu",
+                    "@type", type,
+                    "@lastDate", lastDate,
+                    "@currentDate", currentDate);
+
+                if (!string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(msgError);
+                }
+
+                if (result == null || result == DBNull.Value)
+                {
+                    return new { message = "Không đủ thông tin để tính toán" };
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in DAL: " + ex.Message, ex);
+            }
+        }
+
+        public object select7dayRevenue(DateTime dateStart, DateTime dateEnd)
+        {
+            try
+            {
+                string msgError = "";
+                object result = dbHelper.ExecuteSProcedureReturnDataTable(
+                    out msgError,
+                    "select7DayRevenue",
+                    "@dateStart", dateStart,
+                    "@dateEnd", dateEnd);
+                if (!string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(msgError);
+                }
+
+                if (result == null || result == DBNull.Value)
+                {
+                    return new { message = "Không đủ thông tin để tính toán" };
+                }
+                return result ;
+            }
+            catch (Exception ex) {
                 throw new Exception("Error in DAL: " + ex.Message, ex);
             }
         }

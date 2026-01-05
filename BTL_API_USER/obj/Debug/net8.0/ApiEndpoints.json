@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "BTL_API_USER.Controllers.DashboardController",
+    "Method": "select7dayRevenue",
+    "RelativePath": "api/Dashboard/7dayrevenues",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "date",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BTL_API_USER.Controllers.DashboardController",
     "Method": "selectByDay",
     "RelativePath": "api/Dashboard/day",
     "HttpMethod": "GET",
@@ -63,6 +79,63 @@
       {
         "Name": "pageNumber",
         "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BTL_API_USER.Controllers.DashboardController",
+    "Method": "calculateRevenue",
+    "RelativePath": "api/Dashboard/revenue/day",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "type",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "lastDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "currentDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BTL_API_USER.Controllers.DashboardController",
+    "Method": "calculateRevenue",
+    "RelativePath": "api/Dashboard/revenue/week-month",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "type",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "lastDate",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "currentDate",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "year",
+        "Type": "System.Int32",
         "IsRequired": false
       }
     ],

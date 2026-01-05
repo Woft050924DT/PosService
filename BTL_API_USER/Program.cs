@@ -17,8 +17,17 @@ builder.Services.AddTransient<MarkInvoiceDirty, MarkInvoiceDirty>();
 builder.Services.AddTransient<NotifyAdmin, NotifyAdmin>();
 builder.Services.AddTransient<HandleLog, HandleLog>();
 
-
-
+//allow frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5500")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 // Đăng ký cấu hình kiểu mạnh
 builder.Services.Configure<DefaultConnect>(
@@ -53,6 +62,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 
