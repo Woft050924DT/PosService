@@ -196,5 +196,29 @@ namespace BTL_API_USER.Controllers
                 return StatusCode(500, new { message = "Error in API: " + ex.Message });
             }
         }
+
+        //Get api/Dashboard/hangtons
+        [HttpGet("hangtons")]
+        public IActionResult selectHangTonTrongThangTruoc(int? pageNumber)
+        {
+            if (!pageNumber.HasValue)
+            {
+                return BadRequest(new { message = "Invalid input information" });
+            }
+            try
+            {
+                var result = bll_dashboard.selectHangTonTrongThangTruoc(pageNumber.Value);
+                if (result == null || !result.Any())
+                {
+                    return NotFound(new { message = "Không tìm thấy sản phẩm tồn trong kho" });
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error in API: " + ex.Message });
+            }
+        }
     }
 }

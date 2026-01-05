@@ -33,6 +33,22 @@
   },
   {
     "ContainingType": "BTL_API_USER.Controllers.DashboardController",
+    "Method": "selectHangTonTrongThangTruoc",
+    "RelativePath": "api/Dashboard/hangtons",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BTL_API_USER.Controllers.DashboardController",
     "Method": "selectByMonth",
     "RelativePath": "api/Dashboard/month",
     "HttpMethod": "GET",

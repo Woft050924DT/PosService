@@ -211,5 +211,26 @@ namespace DAL
                 throw new Exception("Error in DAL: " + ex.Message, ex);
             }
         }
+
+        public DataTable selectHangTonTrongThangTruoc(int pageNumber)
+        {
+            try
+            {
+                string msgError = "";
+                DataTable result = dbHelper.ExecuteSProcedureReturnDataTable(
+                    out msgError,
+                    "selectHangTonTrongThangTruoc",
+                    "@pageNumber", pageNumber);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in DAL: " + ex.Message, ex);
+            }
+        }
     }
 }
