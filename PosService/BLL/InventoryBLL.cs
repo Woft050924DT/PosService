@@ -79,5 +79,29 @@ namespace BLL
 
             return dal.DeleteAsync(productId).GetAwaiter().GetResult();
         }
+
+        public List<InventoryStockMovementItemResultDTO> StockIn(InventoryStockMovementDTO dto)
+        {
+            if (dto == null) throw new Exception("Dữ liệu nhập kho không được để trống");
+            if (dto.Items == null || dto.Items.Count == 0) throw new Exception("Danh sách hàng hóa không được để trống");
+
+            return dal.StockInAsync(dto).GetAwaiter().GetResult();
+        }
+
+        public List<InventoryStockMovementItemResultDTO> StockOut(InventoryStockMovementDTO dto)
+        {
+            if (dto == null) throw new Exception("Dữ liệu xuất kho không được để trống");
+            if (dto.Items == null || dto.Items.Count == 0) throw new Exception("Danh sách hàng hóa không được để trống");
+
+            return dal.StockOutAsync(dto).GetAwaiter().GetResult();
+        }
+
+        public InventoryGoodsReceiptResultDTO ReceiveGoods(InventoryGoodsReceiptDTO dto)
+        {
+            if (dto == null) throw new Exception("Dữ liệu nhận hàng không được để trống");
+            if (dto.Items == null || dto.Items.Count == 0) throw new Exception("Danh sách hàng hóa không được để trống");
+
+            return dal.ReceiveGoodsAsync(dto).GetAwaiter().GetResult();
+        }
     }
 }
