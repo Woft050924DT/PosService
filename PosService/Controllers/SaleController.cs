@@ -17,11 +17,25 @@ namespace PosService.Controllers
             _salesBll = salesBll;
         }
 
+        [HttpGet("top-products")]
+        public ActionResult<List<TopSellingProductDTO>> GetTopProducts([FromQuery] DateTime? from = null, [FromQuery] DateTime? to = null, [FromQuery] int top = 10)
+        {
+            var list = _salesBll.GetTopSellingProducts(from, to, top);
+            return Ok(list);
+        }
+
         // GET: api/sales?customerId=1&from=2025-01-01&to=2025-01-31
         [HttpGet]
         public ActionResult<List<SalesInvoiceDTO>> GetAll([FromQuery] int? customerId = null, [FromQuery] DateTime? from = null, [FromQuery] DateTime? to = null)
         {
             var list = _salesBll.GetAllSales(customerId, from, to);
+            return Ok(list);
+        }
+
+        [HttpGet("completed")]
+        public ActionResult<List<SalesInvoiceDTO>> GetCompleted([FromQuery] int? customerId = null, [FromQuery] DateTime? from = null, [FromQuery] DateTime? to = null)
+        {
+            var list = _salesBll.GetCompletedSales(customerId, from, to);
             return Ok(list);
         }
 

@@ -36,6 +36,88 @@ namespace PosService.DAL
             _conn = configuration.GetConnectionString("DefaultConnection");
         }
 
+        public async Task<List<TopSellingProductDTO>> GetTopSellingProductsAsync(DateTime? from = null, DateTime? to = null, int top = 10)
+        {
+            if (top <= 0)
+            {
+                top = 10;
+            }
+
+            const string baseSql = @"
+                SELECT
+                    d.ProductID,
+                    p.ProductCode,
+                    p.ProductName,
+                    SUM(d.Quantity) AS TotalQuantity,
+                    SUM(d.LineTotal) AS TotalRevenue
+                FROM SalesInvoiceDetails d
+                INNER JOIN SalesInvoices si ON d.InvoiceID = si.InvoiceID
+                INNER JOIN Products p ON d.ProductID = p.ProductID
+                WHERE si.Status = @Status";
+
+            var innerSql = baseSql;
+            var parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@Status", SqlDbType.NVarChar, 50) { Value = "Completed" }
+            };
+
+            if (from.HasValue)
+            {
+                innerSql += " AND si.InvoiceDate >= @FromDate";
+                parameters.Add(new SqlParameter("@FromDate", SqlDbType.DateTime) { Value = from.Value });
+            }
+
+            if (to.HasValue)
+            {
+                innerSql += " AND si.InvoiceDate <= @ToDate";
+                parameters.Add(new SqlParameter("@ToDate", SqlDbType.DateTime) { Value = to.Value });
+            }
+
+            innerSql += @"
+                GROUP BY d.ProductID, p.ProductCode, p.ProductName";
+
+            var sql = $@"
+                SELECT TOP (@Top)
+                    ProductID,
+                    ProductCode,
+                    ProductName,
+                    TotalQuantity,
+                    TotalRevenue
+                FROM
+                (
+                    {innerSql}
+                ) AS RankedProducts
+                ORDER BY TotalQuantity DESC";
+
+            var result = new List<TopSellingProductDTO>();
+
+            using (var conn = new SqlConnection(_conn))
+            using (var cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.AddRange(parameters.ToArray());
+                cmd.Parameters.Add(new SqlParameter("@Top", SqlDbType.Int) { Value = top });
+
+                await conn.OpenAsync();
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    var dto = new TopSellingProductDTO
+                    {
+                        ProductId = reader["ProductID"] != DBNull.Value ? Convert.ToInt32(reader["ProductID"]) : 0,
+                        ProductCode = reader["ProductCode"]?.ToString() ?? string.Empty,
+                        ProductName = reader["ProductName"]?.ToString() ?? string.Empty,
+                        TotalQuantity = reader["TotalQuantity"] != DBNull.Value ? Convert.ToInt32(reader["TotalQuantity"]) : 0,
+                        TotalRevenue = reader["TotalRevenue"] != DBNull.Value ? Convert.ToDecimal(reader["TotalRevenue"]) : 0m
+                    };
+
+                    result.Add(dto);
+                }
+            }
+
+            return result;
+        }
+
         public async Task<List<SalesInvoiceDTO>> GetAllAsync(int? customerId = null, DateTime? from = null, DateTime? to = null)
         {
             const string baseSql = @"
@@ -64,6 +146,157 @@ namespace PosService.DAL
 
             var sql = baseSql;
             var parameters = new List<SqlParameter>();
+
+            if (customerId.HasValue)
+            {
+                sql += " AND si.CustomerID = @CustomerID";
+                parameters.Add(new SqlParameter("@CustomerID", SqlDbType.Int) { Value = customerId.Value });
+            }
+
+            if (from.HasValue)
+            {
+                sql += " AND si.InvoiceDate >= @FromDate";
+                parameters.Add(new SqlParameter("@FromDate", SqlDbType.DateTime) { Value = from.Value });
+            }
+
+            if (to.HasValue)
+            {
+                sql += " AND si.InvoiceDate <= @ToDate";
+                parameters.Add(new SqlParameter("@ToDate", SqlDbType.DateTime) { Value = to.Value });
+            }
+
+            sql += " ORDER BY si.InvoiceDate DESC";
+
+            var result = new List<SalesInvoiceDTO>();
+
+            using (var conn = new SqlConnection(_conn))
+            using (var cmd = new SqlCommand(sql, conn))
+            {
+                if (parameters.Count > 0)
+                {
+                    cmd.Parameters.AddRange(parameters.ToArray());
+                }
+
+                await conn.OpenAsync();
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    var dto = new SalesInvoiceDTO
+                    {
+                        InvoiceId = reader["InvoiceID"] != DBNull.Value ? Convert.ToInt32(reader["InvoiceID"]) : 0,
+                        InvoiceNumber = reader["InvoiceNumber"]?.ToString() ?? string.Empty,
+                        InvoiceDate = reader["InvoiceDate"] != DBNull.Value ? Convert.ToDateTime(reader["InvoiceDate"]) : (DateTime?)null,
+                        CustomerId = reader["CustomerID"] != DBNull.Value ? Convert.ToInt32(reader["CustomerID"]) : (int?)null,
+                        CustomerName = reader["CustomerName"]?.ToString(),
+                        UserId = reader["UserID"] != DBNull.Value ? Convert.ToInt32(reader["UserID"]) : (int?)null,
+                        SubTotal = reader["SubTotal"] != DBNull.Value ? Convert.ToDecimal(reader["SubTotal"]) : (decimal?)null,
+                        Discount = reader["Discount"] != DBNull.Value ? Convert.ToDecimal(reader["Discount"]) : (decimal?)null,
+                        PromotionId = reader["PromotionID"] != DBNull.Value ? Convert.ToInt32(reader["PromotionID"]) : (int?)null,
+                        PromotionCode = reader["PromotionCode"]?.ToString(),
+                        PromotionName = reader["PromotionName"]?.ToString(),
+                        PromotionDiscount = reader["PromotionDiscount"] != DBNull.Value ? Convert.ToDecimal(reader["PromotionDiscount"]) : (decimal?)null,
+                        TotalAmount = reader["TotalAmount"] != DBNull.Value ? Convert.ToDecimal(reader["TotalAmount"]) : (decimal?)null,
+                        PaidAmount = reader["PaidAmount"] != DBNull.Value ? Convert.ToDecimal(reader["PaidAmount"]) : (decimal?)null,
+                        PaymentMethod = reader["PaymentMethod"]?.ToString(),
+                        Status = reader["Status"]?.ToString(),
+                        Notes = reader["Notes"]?.ToString(),
+                        Details = new List<SalesInvoiceDetailDTO>()
+                    };
+
+                    result.Add(dto);
+                }
+            }
+
+            if (result.Count == 0)
+            {
+                return result;
+            }
+
+            var dict = new Dictionary<int, SalesInvoiceDTO>();
+            foreach (var inv in result)
+            {
+                dict[inv.InvoiceId] = inv;
+            }
+
+            const string detailSql = @"
+                SELECT
+                    d.DetailID,
+                    d.InvoiceID,
+                    d.ProductID,
+                    pr.ProductName,
+                    d.Quantity,
+                    d.UnitPrice,
+                    d.Discount,
+                    d.LinePromotionDiscount,
+                    d.LineTotal
+                FROM SalesInvoiceDetails d
+                LEFT JOIN Products pr ON d.ProductID = pr.ProductID";
+
+            using (var conn = new SqlConnection(_conn))
+            using (var cmd = new SqlCommand(detailSql, conn))
+            {
+                await conn.OpenAsync();
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    var invoiceId = reader["InvoiceID"] != DBNull.Value ? Convert.ToInt32(reader["InvoiceID"]) : 0;
+                    if (!dict.TryGetValue(invoiceId, out var inv))
+                    {
+                        continue;
+                    }
+
+                    var det = new SalesInvoiceDetailDTO
+                    {
+                        DetailId = reader["DetailID"] != DBNull.Value ? Convert.ToInt32(reader["DetailID"]) : 0,
+                        ProductId = reader["ProductID"] != DBNull.Value ? Convert.ToInt32(reader["ProductID"]) : (int?)null,
+                        ProductName = reader["ProductName"]?.ToString(),
+                        Quantity = reader["Quantity"] != DBNull.Value ? Convert.ToInt32(reader["Quantity"]) : 0,
+                        UnitPrice = reader["UnitPrice"] != DBNull.Value ? Convert.ToDecimal(reader["UnitPrice"]) : 0m,
+                        Discount = reader["Discount"] != DBNull.Value ? Convert.ToDecimal(reader["Discount"]) : (decimal?)null,
+                        LinePromotionDiscount = reader["LinePromotionDiscount"] != DBNull.Value ? Convert.ToDecimal(reader["LinePromotionDiscount"]) : (decimal?)null,
+                        LineTotal = reader["LineTotal"] != DBNull.Value ? Convert.ToDecimal(reader["LineTotal"]) : 0m
+                    };
+
+                    inv.Details.Add(det);
+                }
+            }
+
+            return result;
+        }
+
+        public async Task<List<SalesInvoiceDTO>> GetCompletedAsync(int? customerId = null, DateTime? from = null, DateTime? to = null)
+        {
+            const string baseSql = @"
+                SELECT
+                    si.InvoiceID,
+                    si.InvoiceNumber,
+                    si.InvoiceDate,
+                    si.CustomerID,
+                    c.FullName AS CustomerName,
+                    si.UserID,
+                    si.SubTotal,
+                    si.Discount,
+                    si.PromotionID,
+                    p.PromotionCode,
+                    p.PromotionName,
+                    si.PromotionDiscount,
+                    si.TotalAmount,
+                    si.PaidAmount,
+                    si.PaymentMethod,
+                    si.Status,
+                    si.Notes
+                FROM SalesInvoices si
+                LEFT JOIN Customers c ON si.CustomerID = c.CustomerID
+                LEFT JOIN Promotions p ON si.PromotionID = p.PromotionID
+                WHERE 1 = 1";
+
+            var sql = baseSql;
+            var parameters = new List<SqlParameter>();
+
+            sql += " AND si.Status = @Status";
+            parameters.Add(new SqlParameter("@Status", SqlDbType.NVarChar, 50) { Value = "Completed" });
 
             if (customerId.HasValue)
             {

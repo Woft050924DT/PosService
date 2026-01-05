@@ -120,6 +120,105 @@ namespace PosService.DAL
             return list;
         }
 
+        public async Task<List<InventoryDTO>> GetLowStockAsync(
+            int? categoryId = null,
+            int? supplierId = null,
+            string? q = null)
+        {
+            var list = new List<InventoryDTO>();
+
+            var sql = new StringBuilder();
+            sql.Append(@"
+                SELECT 
+                    p.ProductId,
+                    p.ProductCode,
+                    p.Barcode,
+                    p.ProductName,
+                    p.CategoryId,
+                    c.CategoryName,
+                    p.SupplierId,
+                    s.SupplierName,
+                    p.Unit,
+                    p.CostPrice,
+                    p.SellingPrice,
+                    p.StockQuantity,
+                    p.MinStock,
+                    p.ImageUrl,
+                    p.IsActive,
+                    p.CreatedAt
+                FROM Products p
+                LEFT JOIN Categories c ON p.CategoryId = c.CategoryId
+                LEFT JOIN Suppliers s ON p.SupplierId = s.SupplierId
+                WHERE 1 = 1
+                  AND p.IsActive = 1
+                  AND p.MinStock IS NOT NULL
+                  AND p.StockQuantity IS NOT NULL
+                  AND p.StockQuantity <= p.MinStock");
+
+            var parameters = new List<SqlParameter>();
+
+            if (categoryId.HasValue)
+            {
+                sql.Append(" AND p.CategoryId = @CategoryId");
+                parameters.Add(new SqlParameter("@CategoryId", SqlDbType.Int) { Value = categoryId.Value });
+            }
+
+            if (supplierId.HasValue)
+            {
+                sql.Append(" AND p.SupplierId = @SupplierId");
+                parameters.Add(new SqlParameter("@SupplierId", SqlDbType.Int) { Value = supplierId.Value });
+            }
+
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                var keyword = q.Trim();
+                sql.Append(@" AND (
+                        p.ProductCode LIKE @Q
+                        OR p.Barcode LIKE @Q
+                        OR p.ProductName LIKE @Q
+                    )");
+                parameters.Add(new SqlParameter("@Q", SqlDbType.NVarChar, 255) { Value = "%" + keyword + "%" });
+            }
+
+            using var conn = new SqlConnection(_conn);
+            using var cmd = new SqlCommand(sql.ToString(), conn);
+
+            if (parameters.Count > 0)
+            {
+                cmd.Parameters.AddRange(parameters.ToArray());
+            }
+
+            await conn.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                var item = new InventoryDTO
+                {
+                    ProductId = reader["ProductId"] != DBNull.Value ? Convert.ToInt32(reader["ProductId"]) : 0,
+                    ProductCode = reader["ProductCode"]?.ToString(),
+                    Barcode = reader["Barcode"]?.ToString(),
+                    ProductName = reader["ProductName"]?.ToString(),
+                    CategoryId = reader["CategoryId"] != DBNull.Value ? Convert.ToInt32(reader["CategoryId"]) : 0,
+                    CategoryName = reader["CategoryName"]?.ToString(),
+                    SupplierId = reader["SupplierId"] != DBNull.Value ? Convert.ToInt32(reader["SupplierId"]) : 0,
+                    SupplierName = reader["SupplierName"]?.ToString(),
+                    Unit = reader["Unit"]?.ToString(),
+                    CostPrice = reader["CostPrice"] != DBNull.Value ? Convert.ToDecimal(reader["CostPrice"]) : 0,
+                    SellingPrice = reader["SellingPrice"] != DBNull.Value ? Convert.ToDecimal(reader["SellingPrice"]) : 0,
+                    StockQuantity = reader["StockQuantity"] != DBNull.Value ? Convert.ToInt32(reader["StockQuantity"]) : 0,
+                    MinStock = reader["MinStock"] != DBNull.Value ? Convert.ToInt32(reader["MinStock"]) : 0,
+                    ImageUrl = reader["ImageUrl"]?.ToString(),
+                    IsActive = reader["IsActive"] != DBNull.Value && Convert.ToBoolean(reader["IsActive"]),
+                    CreatedAt = reader["CreatedAt"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedAt"]) : DateTime.MinValue
+                };
+
+                list.Add(item);
+            }
+
+            return list;
+        }
+
         public async Task<InventoryDTO?> GetByIdAsync(int id)
         {
             const string sql = @"
