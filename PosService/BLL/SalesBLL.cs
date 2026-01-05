@@ -14,9 +14,19 @@ namespace BLL
             dal = salesDal;
         }
 
+        public List<TopSellingProductDTO> GetTopSellingProducts(DateTime? from = null, DateTime? to = null, int top = 10)
+        {
+            return dal.GetTopSellingProductsAsync(from, to, top).GetAwaiter().GetResult();
+        }
+
         public List<SalesInvoiceDTO> GetAllSales(int? customerId = null, DateTime? from = null, DateTime? to = null)
         {
             return dal.GetAllAsync(customerId, from, to).GetAwaiter().GetResult();
+        }
+
+        public List<SalesInvoiceDTO> GetCompletedSales(int? customerId = null, DateTime? from = null, DateTime? to = null)
+        {
+            return dal.GetCompletedAsync(customerId, from, to).GetAwaiter().GetResult();
         }
 
         public SalesInvoiceDTO? GetSalesInvoiceById(int id)
@@ -40,4 +50,3 @@ namespace BLL
         }
     }
 }
-

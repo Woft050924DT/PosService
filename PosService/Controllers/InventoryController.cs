@@ -26,6 +26,15 @@ namespace PosService.Controllers
             return Ok(list);
         }
 
+        [HttpGet("low-stock")]
+        public ActionResult<List<InventoryDTO>> GetLowStock([FromQuery] int? categoryId = null,
+                                                            [FromQuery] int? supplierId = null,
+                                                            [FromQuery] string? q = null)
+        {
+            var list = _inventoryBll.GetLowStockInventory(categoryId, supplierId, q);
+            return Ok(list);
+        }
+
         [HttpGet("{id:int}")]
         public ActionResult<InventoryDTO> GetById(int id)
         {

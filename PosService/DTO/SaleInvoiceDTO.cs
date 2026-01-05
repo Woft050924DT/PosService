@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace PosService.DTO
@@ -59,5 +59,14 @@ namespace PosService.DTO
         public string? PaymentMethod { get; set; }
         public string? Notes { get; set; }
         public List<CreateSalesInvoiceDetailDTO> Details { get; set; } = new List<CreateSalesInvoiceDetailDTO>();
+    }
+
+    public class TopSellingProductDTO
+    {
+        public int ProductId { get; set; }
+        public string ProductCode { get; set; } = null!;
+        public string ProductName { get; set; } = null!;
+        public int TotalQuantity { get; set; }
+        public decimal TotalRevenue { get; set; }
     }
 }

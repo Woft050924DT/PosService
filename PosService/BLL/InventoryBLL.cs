@@ -23,6 +23,14 @@ namespace BLL
             return dal.GetAllAsync(isActive, categoryId, supplierId, q).GetAwaiter().GetResult();
         }
 
+        public List<InventoryDTO> GetLowStockInventory(
+            int? categoryId = null,
+            int? supplierId = null,
+            string? q = null)
+        {
+            return dal.GetLowStockAsync(categoryId, supplierId, q).GetAwaiter().GetResult();
+        }
+
         public InventoryDTO? GetInventoryById(int productId)
         {
             if (productId <= 0)
