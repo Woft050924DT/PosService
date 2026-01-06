@@ -64,7 +64,7 @@ namespace PosService.Controllers
             dto.ProductId = id;
             var ok = _inventoryBll.UpdateInventory(dto);
             if (!ok) return NotFound();
-            return NoContent();
+            return Ok(true);
         }
 
         [HttpDelete("{id:int}")]

@@ -1,4 +1,4 @@
-﻿
+
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using BLL;
@@ -59,7 +59,7 @@ namespace PosService.Controllers
             dto.ProductId = id;
             var ok = _productBll.UpdateProduct(dto);
             if (!ok) return NotFound();
-            return NoContent();
+            return Ok(true);
         }
 
         // DELETE: api/products/5
