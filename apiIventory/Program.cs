@@ -1,12 +1,28 @@
-using apiIventory;
+﻿using apiIventory;
 using BLL;
 using DAL;
 using DTO;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
-//Inject dependency into the project
+// ===================== CORS =====================
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReact",
+        policy =>
+        {
+            policy
+                .WithOrigins(
+                    "http://localhost:5173",
+                    "https://localhost:5173"
+                )
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+// =================================================
+
+// Inject dependency
 builder.Services.AddTransient<dto_helloWorld, helloWorld>();
 builder.Services.AddScoped<dal_Products>();
 builder.Services.AddScoped<bll_Products>();
@@ -14,24 +30,22 @@ builder.Services.AddScoped<dal_InventoryTransaction>();
 builder.Services.AddScoped<bll_InventoryTransaction>();
 builder.Services.AddScoped<dal_Suppliers>();
 builder.Services.AddScoped<bll_Suppliers>();
-// Strongly typed config
+
 builder.Services.Configure<appSetting>(
     builder.Configuration.GetSection("AppSettings"));
 
 builder.Services.Configure<ConnectionStrings>(
     builder.Configuration.GetSection("ConnectionStrings"));
 
-
-// Add services to the container.
 builder.Services.AddScoped<bll_Categories>();
+
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ===================== PIPELINE =====================
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -40,8 +54,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();              // ✅ BẮT BUỘC
+app.UseCors("AllowReact");     // ✅ DÒNG QUAN TRỌNG NHẤT
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.Run();
