@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
@@ -458,6 +459,328 @@ namespace PosService.DAL
             await conn.OpenAsync();
             var rows = await cmd.ExecuteNonQueryAsync();
             return rows > 0;
+        }
+
+        public async Task<List<InventoryStockMovementItemResultDTO>> StockInAsync(InventoryStockMovementDTO dto)
+        {
+            return await ApplyStockMovementAsync(dto, "IN");
+        }
+
+        public async Task<List<InventoryStockMovementItemResultDTO>> StockOutAsync(InventoryStockMovementDTO dto)
+        {
+            return await ApplyStockMovementAsync(dto, "OUT");
+        }
+
+        private async Task<List<InventoryStockMovementItemResultDTO>> ApplyStockMovementAsync(InventoryStockMovementDTO dto, string transactionType)
+        {
+            if (dto == null) throw new ArgumentNullException(nameof(dto));
+            if (dto.Items == null || dto.Items.Count == 0) throw new InvalidOperationException("Danh sách hàng hóa không được để trống.");
+
+            var movementSign = string.Equals(transactionType, "IN", StringComparison.OrdinalIgnoreCase) ? 1 : -1;
+
+            var normalizedItems = dto.Items
+                .GroupBy(x => x.ProductId)
+                .Select(g => new InventoryStockItemDTO
+                {
+                    ProductId = g.Key,
+                    Quantity = g.Sum(x => x.Quantity)
+                })
+                .ToList();
+
+            foreach (var item in normalizedItems)
+            {
+                if (item.ProductId <= 0) throw new InvalidOperationException("ProductId không hợp lệ.");
+                if (item.Quantity <= 0) throw new InvalidOperationException("Quantity phải lớn hơn 0.");
+            }
+
+            const string selectQtySql = @"
+                SELECT ISNULL(StockQuantity, 0)
+                FROM Products WITH (UPDLOCK, ROWLOCK)
+                WHERE ProductId = @ProductId";
+
+            const string updateQtySql = @"
+                UPDATE Products
+                SET StockQuantity = @NewQuantity
+                WHERE ProductId = @ProductId";
+
+            const string insertTxnSql = @"
+                INSERT INTO InventoryTransactions
+                (
+                    ProductId,
+                    TransactionType,
+                    ReferenceType,
+                    ReferenceId,
+                    Quantity,
+                    QuantityBefore,
+                    QuantityAfter,
+                    Notes,
+                    CreatedAt,
+                    CreatedBy
+                )
+                VALUES
+                (
+                    @ProductId,
+                    @TransactionType,
+                    @ReferenceType,
+                    @ReferenceId,
+                    @Quantity,
+                    @QuantityBefore,
+                    @QuantityAfter,
+                    @Notes,
+                    GETDATE(),
+                    @CreatedBy
+                )";
+
+            var results = new List<InventoryStockMovementItemResultDTO>();
+
+            using var conn = new SqlConnection(_conn);
+            await conn.OpenAsync();
+            using var tx = await conn.BeginTransactionAsync();
+
+            try
+            {
+                using var selectCmd = new SqlCommand(selectQtySql, conn, (SqlTransaction)tx);
+                selectCmd.Parameters.Add("@ProductId", SqlDbType.Int);
+
+                using var updateCmd = new SqlCommand(updateQtySql, conn, (SqlTransaction)tx);
+                updateCmd.Parameters.Add("@ProductId", SqlDbType.Int);
+                updateCmd.Parameters.Add("@NewQuantity", SqlDbType.Int);
+
+                using var insertCmd = new SqlCommand(insertTxnSql, conn, (SqlTransaction)tx);
+                insertCmd.Parameters.Add("@ProductId", SqlDbType.Int);
+                insertCmd.Parameters.Add("@TransactionType", SqlDbType.NVarChar, 50);
+                insertCmd.Parameters.Add("@ReferenceType", SqlDbType.NVarChar, 50);
+                insertCmd.Parameters.Add("@ReferenceId", SqlDbType.Int);
+                insertCmd.Parameters.Add("@Quantity", SqlDbType.Int);
+                insertCmd.Parameters.Add("@QuantityBefore", SqlDbType.Int);
+                insertCmd.Parameters.Add("@QuantityAfter", SqlDbType.Int);
+                insertCmd.Parameters.Add("@Notes", SqlDbType.NVarChar, -1);
+                insertCmd.Parameters.Add("@CreatedBy", SqlDbType.Int);
+
+                foreach (var item in normalizedItems)
+                {
+                    selectCmd.Parameters["@ProductId"].Value = item.ProductId;
+                    var scalar = await selectCmd.ExecuteScalarAsync();
+                    if (scalar == null || scalar == DBNull.Value)
+                    {
+                        throw new InvalidOperationException($"Không tìm thấy sản phẩm ProductId={item.ProductId}.");
+                    }
+
+                    var before = Convert.ToInt32(scalar);
+                    var after = before + (movementSign * item.Quantity);
+
+                    if (after < 0)
+                    {
+                        throw new InvalidOperationException($"Tồn kho không đủ cho ProductId={item.ProductId}. Hiện có {before}, cần xuất {item.Quantity}.");
+                    }
+
+                    updateCmd.Parameters["@ProductId"].Value = item.ProductId;
+                    updateCmd.Parameters["@NewQuantity"].Value = after;
+                    var rows = await updateCmd.ExecuteNonQueryAsync();
+                    if (rows <= 0)
+                    {
+                        throw new InvalidOperationException($"Cập nhật tồn kho thất bại cho ProductId={item.ProductId}.");
+                    }
+
+                    insertCmd.Parameters["@ProductId"].Value = item.ProductId;
+                    insertCmd.Parameters["@TransactionType"].Value = transactionType;
+                    insertCmd.Parameters["@ReferenceType"].Value = (object?)dto.ReferenceType ?? DBNull.Value;
+                    insertCmd.Parameters["@ReferenceId"].Value = dto.ReferenceId.HasValue ? (object)dto.ReferenceId.Value : DBNull.Value;
+                    insertCmd.Parameters["@Quantity"].Value = item.Quantity;
+                    insertCmd.Parameters["@QuantityBefore"].Value = before;
+                    insertCmd.Parameters["@QuantityAfter"].Value = after;
+                    insertCmd.Parameters["@Notes"].Value = (object?)dto.Notes ?? DBNull.Value;
+                    insertCmd.Parameters["@CreatedBy"].Value = dto.UserId.HasValue ? (object)dto.UserId.Value : DBNull.Value;
+                    await insertCmd.ExecuteNonQueryAsync();
+
+                    results.Add(new InventoryStockMovementItemResultDTO
+                    {
+                        ProductId = item.ProductId,
+                        Quantity = item.Quantity,
+                        QuantityBefore = before,
+                        QuantityAfter = after
+                    });
+                }
+
+                await tx.CommitAsync();
+                return results;
+            }
+            catch
+            {
+                await tx.RollbackAsync();
+                throw;
+            }
+        }
+
+        public async Task<InventoryGoodsReceiptResultDTO> ReceiveGoodsAsync(InventoryGoodsReceiptDTO dto)
+        {
+            if (dto == null) throw new ArgumentNullException(nameof(dto));
+            if (dto.Items == null || dto.Items.Count == 0) throw new InvalidOperationException("Danh sách hàng hóa không được để trống.");
+
+            foreach (var item in dto.Items)
+            {
+                if (item == null) throw new InvalidOperationException("Dòng hàng hóa không hợp lệ.");
+                if ((item.ProductId == null || item.ProductId <= 0) && string.IsNullOrWhiteSpace(item.ProductCode))
+                    throw new InvalidOperationException("Cần cung cấp ProductId hoặc ProductCode.");
+                if (item.Quantity <= 0) throw new InvalidOperationException("Quantity phải lớn hơn 0.");
+                if (item.UnitPrice < 0) throw new InvalidOperationException("UnitPrice không được âm.");
+                if (item.LineTotal.HasValue && item.LineTotal.Value < 0) throw new InvalidOperationException("LineTotal không được âm.");
+            }
+
+            const string selectProductSql = @"
+                SELECT TOP 1
+                    ProductId,
+                    ProductCode,
+                    ProductName,
+                    ISNULL(StockQuantity, 0) AS StockQuantity
+                FROM Products WITH (UPDLOCK, ROWLOCK)
+                WHERE
+                    (@ProductId IS NOT NULL AND ProductId = @ProductId)
+                    OR (@ProductCode IS NOT NULL AND ProductCode = @ProductCode)";
+
+            const string updateQtySql = @"
+                UPDATE Products
+                SET StockQuantity = @NewQuantity
+                WHERE ProductId = @ProductId";
+
+            const string insertTxnSql = @"
+                INSERT INTO InventoryTransactions
+                (
+                    ProductId,
+                    TransactionType,
+                    ReferenceType,
+                    ReferenceId,
+                    Quantity,
+                    QuantityBefore,
+                    QuantityAfter,
+                    Notes,
+                    CreatedAt,
+                    CreatedBy
+                )
+                VALUES
+                (
+                    @ProductId,
+                    @TransactionType,
+                    @ReferenceType,
+                    @ReferenceId,
+                    @Quantity,
+                    @QuantityBefore,
+                    @QuantityAfter,
+                    @Notes,
+                    GETDATE(),
+                    @CreatedBy
+                )";
+
+            var result = new InventoryGoodsReceiptResultDTO
+            {
+                ReferenceType = dto.ReferenceType,
+                ReferenceId = dto.ReferenceId,
+                UserId = dto.UserId
+            };
+
+            using var conn = new SqlConnection(_conn);
+            await conn.OpenAsync();
+            using var tx = await conn.BeginTransactionAsync();
+
+            try
+            {
+                using var selectCmd = new SqlCommand(selectProductSql, conn, (SqlTransaction)tx);
+                selectCmd.Parameters.Add("@ProductId", SqlDbType.Int);
+                selectCmd.Parameters.Add("@ProductCode", SqlDbType.NVarChar, 50);
+
+                using var updateCmd = new SqlCommand(updateQtySql, conn, (SqlTransaction)tx);
+                updateCmd.Parameters.Add("@ProductId", SqlDbType.Int);
+                updateCmd.Parameters.Add("@NewQuantity", SqlDbType.Int);
+
+                using var insertCmd = new SqlCommand(insertTxnSql, conn, (SqlTransaction)tx);
+                insertCmd.Parameters.Add("@ProductId", SqlDbType.Int);
+                insertCmd.Parameters.Add("@TransactionType", SqlDbType.NVarChar, 50);
+                insertCmd.Parameters.Add("@ReferenceType", SqlDbType.NVarChar, 50);
+                insertCmd.Parameters.Add("@ReferenceId", SqlDbType.Int);
+                insertCmd.Parameters.Add("@Quantity", SqlDbType.Int);
+                insertCmd.Parameters.Add("@QuantityBefore", SqlDbType.Int);
+                insertCmd.Parameters.Add("@QuantityAfter", SqlDbType.Int);
+                insertCmd.Parameters.Add("@Notes", SqlDbType.NVarChar, -1);
+                insertCmd.Parameters.Add("@CreatedBy", SqlDbType.Int);
+
+                decimal total = 0m;
+
+                foreach (var item in dto.Items)
+                {
+                    var productCode = item.ProductId.HasValue
+                        ? null
+                        : (string.IsNullOrWhiteSpace(item.ProductCode) ? null : item.ProductCode.Trim());
+
+                    selectCmd.Parameters["@ProductId"].Value = item.ProductId.HasValue ? (object)item.ProductId.Value : DBNull.Value;
+                    selectCmd.Parameters["@ProductCode"].Value = (object?)productCode ?? DBNull.Value;
+
+                    using var reader = await selectCmd.ExecuteReaderAsync();
+                    if (!await reader.ReadAsync())
+                    {
+                        throw new InvalidOperationException($"Không tìm thấy sản phẩm ({(item.ProductId.HasValue ? "ProductId=" + item.ProductId.Value : "ProductCode=" + productCode)}).");
+                    }
+
+                    var productId = reader["ProductId"] != DBNull.Value ? Convert.ToInt32(reader["ProductId"]) : 0;
+                    var dbCode = reader["ProductCode"]?.ToString() ?? string.Empty;
+                    var dbName = reader["ProductName"]?.ToString() ?? (item.ProductName ?? string.Empty);
+                    var before = reader["StockQuantity"] != DBNull.Value ? Convert.ToInt32(reader["StockQuantity"]) : 0;
+                    await reader.CloseAsync();
+
+                    var after = before + item.Quantity;
+
+                    var computedLineTotal = item.Quantity * item.UnitPrice;
+                    var lineTotal = item.LineTotal ?? computedLineTotal;
+                    if (item.LineTotal.HasValue && Math.Abs(item.LineTotal.Value - computedLineTotal) > 0.01m)
+                    {
+                        throw new InvalidOperationException($"LineTotal không khớp cho {dbCode}. Kỳ vọng {computedLineTotal}.");
+                    }
+
+                    updateCmd.Parameters["@ProductId"].Value = productId;
+                    updateCmd.Parameters["@NewQuantity"].Value = after;
+                    var rows = await updateCmd.ExecuteNonQueryAsync();
+                    if (rows <= 0) throw new InvalidOperationException($"Cập nhật tồn kho thất bại cho {dbCode}.");
+
+                    insertCmd.Parameters["@ProductId"].Value = productId;
+                    insertCmd.Parameters["@TransactionType"].Value = "IN";
+                    insertCmd.Parameters["@ReferenceType"].Value = (object?)dto.ReferenceType ?? DBNull.Value;
+                    insertCmd.Parameters["@ReferenceId"].Value = dto.ReferenceId.HasValue ? (object)dto.ReferenceId.Value : DBNull.Value;
+                    insertCmd.Parameters["@Quantity"].Value = item.Quantity;
+                    insertCmd.Parameters["@QuantityBefore"].Value = before;
+                    insertCmd.Parameters["@QuantityAfter"].Value = after;
+                    insertCmd.Parameters["@Notes"].Value = (object?)dto.Notes ?? DBNull.Value;
+                    insertCmd.Parameters["@CreatedBy"].Value = dto.UserId.HasValue ? (object)dto.UserId.Value : DBNull.Value;
+                    await insertCmd.ExecuteNonQueryAsync();
+
+                    total += lineTotal;
+
+                    result.Items.Add(new InventoryGoodsReceiptItemResultDTO
+                    {
+                        ProductId = productId,
+                        ProductCode = dbCode,
+                        ProductName = dbName,
+                        Quantity = item.Quantity,
+                        UnitPrice = item.UnitPrice,
+                        LineTotal = lineTotal,
+                        QuantityBefore = before,
+                        QuantityAfter = after
+                    });
+                }
+
+                if (dto.TotalAmount.HasValue && Math.Abs(dto.TotalAmount.Value - total) > 0.01m)
+                {
+                    throw new InvalidOperationException($"TotalAmount không khớp. Kỳ vọng {total}.");
+                }
+
+                result.TotalAmount = total;
+
+                await tx.CommitAsync();
+                return result;
+            }
+            catch
+            {
+                await tx.RollbackAsync();
+                throw;
+            }
         }
     }
 }

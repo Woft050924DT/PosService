@@ -48,7 +48,7 @@ namespace PosService.Controllers
 
             var ok = _taxBll.UpdateTax(id, dto);
             if (!ok) return NotFound();
-            return NoContent();
+            return Ok(true);
         }
 
         [HttpDelete("{id:int}")]

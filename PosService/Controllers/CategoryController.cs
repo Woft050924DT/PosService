@@ -52,7 +52,7 @@ namespace PosService.Controllers
 
             var ok = _categoryBll.UpdateCategory(id, dto);
             if (!ok) return NotFound();
-            return NoContent();
+            return Ok(true);
         }
 
         // DELETE: api/category/5

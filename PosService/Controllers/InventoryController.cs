@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using BLL;
@@ -63,7 +64,7 @@ namespace PosService.Controllers
             dto.ProductId = id;
             var ok = _inventoryBll.UpdateInventory(dto);
             if (!ok) return NotFound();
-            return NoContent();
+            return Ok(true);
         }
 
         [HttpDelete("{id:int}")]
@@ -72,6 +73,40 @@ namespace PosService.Controllers
             var ok = _inventoryBll.DeleteInventory(id);
             if (!ok) return NotFound();
             return NoContent();
+        }
+
+        [HttpPost("stock-out")]
+        public ActionResult<List<InventoryStockMovementItemResultDTO>> StockOut([FromBody] InventoryStockMovementDTO dto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (dto is null) return BadRequest();
+
+            try
+            {
+                var result = _inventoryBll.StockOut(dto);
+                return Ok(result);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
+        [HttpPost("stock-in")]
+        public ActionResult<InventoryGoodsReceiptResultDTO> StockIn([FromBody] InventoryGoodsReceiptDTO dto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (dto is null) return BadRequest();
+
+            try
+            {
+                var result = _inventoryBll.ReceiveGoods(dto);
+                return Ok(result);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
     }
 }
