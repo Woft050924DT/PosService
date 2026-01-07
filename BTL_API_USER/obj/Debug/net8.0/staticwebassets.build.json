@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "9mKxNQPA23cl2Hjnjg7K6m9th+7CLW+C+bAFwF+pm8U=",
-  "Source": "BTL_API_USER",
-  "BasePath": "_content/BTL_API_USER",
+  "Hash": "L81mEP++iplpD0UvPrNwrFCXDoZSJdKs9aL3VL6pSXQ=",
+  "Source": "BTL_API_ADMIN",
+  "BasePath": "_content/BTL_API_ADMIN",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],

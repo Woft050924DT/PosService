@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CrJk9krJcDU=",
+  "dgSpecHash": "krSAKl1DySU=",
   "success": true,
-  "projectFilePath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\BTL_API_USER.csproj",
+  "projectFilePath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\BTL_API_ADMIN.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HoangDEV\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\HoangDEV\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

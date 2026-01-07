@@ -33,6 +33,16 @@
   },
   {
     "ContainingType": "BTL_API_USER.Controllers.DashboardController",
+    "Method": "selectHangHotTrongThangHienTai",
+    "RelativePath": "api/Dashboard/hanghots",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BTL_API_USER.Controllers.DashboardController",
     "Method": "selectHangTonTrongThangTruoc",
     "RelativePath": "api/Dashboard/hangtons",
     "HttpMethod": "GET",

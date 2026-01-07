@@ -3159,9 +3159,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\BTL_API_USER.csproj",
-      "projectName": "BTL_API_USER",
-      "projectPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\BTL_API_USER.csproj",
+      "projectUniqueName": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\BTL_API_ADMIN.csproj",
+      "projectName": "BTL_API_ADMIN",
+      "projectPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\BTL_API_ADMIN.csproj",
       "packagesPath": "C:\\Users\\HoangDEV\\.nuget\\packages\\",
       "outputPath": "G:\\hocTap\\linh tinh\\môn ở trường\\webapiASP.net\\btl_huongDichVu\\backend_iventory\\BTL_API_USER\\obj\\",
       "projectStyle": "PackageReference",

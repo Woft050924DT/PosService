@@ -185,5 +185,18 @@ namespace BLL
                 throw new Exception("Error in BLL: " + ex.Message, ex);
             }
         }
+
+        public List<DTO_HangTon> selectHangHotTrongThangHienTai()
+        {
+            try
+            {
+                DataTable table = dal_dashboard.selectHangHotTrongThangHienTai();
+                return ConvertDataTableToDto.ToList<DTO_HangTon>(table);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in BLL: " + ex.Message, ex);
+            }
+        }
     }
 }

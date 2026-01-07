@@ -220,5 +220,26 @@ namespace BTL_API_USER.Controllers
                 return StatusCode(500, new { message = "Error in API: " + ex.Message });
             }
         }
+
+        //Get api/Dashboard/hanghots
+        [HttpGet("hanghots")]
+        public IActionResult selectHangHotTrongThangHienTai()
+        {
+            
+            try
+            {
+                var result = bll_dashboard.selectHangHotTrongThangHienTai();
+                if (result == null || !result.Any())
+                {
+                    return NotFound(new { message = "Không tìm thấy sản phẩm hot" });
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error in API: " + ex.Message });
+            }
+        }
     }
 }
